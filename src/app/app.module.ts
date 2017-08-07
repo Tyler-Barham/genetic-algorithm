@@ -5,14 +5,16 @@ import { HttpModule } from '@angular/http';
 import { GeneticAlgorithm } from './services/genetic-algorithm.service';
 
 import { AppComponent } from './app.component';
-import { CourseComponent } from './components/course/course.component';
-import { IngredientComponent } from './components/course/ingredient/ingredient.component';
+import { CourseComponent } from './components/daily-meal/course/course.component';
+import { IngredientComponent } from './components/daily-meal/course/ingredient/ingredient.component';
+import { DailyMealComponent } from './components/daily-meal/daily-meal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CourseComponent,
-    IngredientComponent
+    IngredientComponent,
+    DailyMealComponent
   ],
   imports: [
     BrowserModule,

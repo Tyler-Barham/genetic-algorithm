@@ -1,0 +1,21 @@
+<div *ngIf="meal">
+  <div (click)="toggleAccordian($event)" class="accordionButton">Breakfast</div>
+  <div class="accordianContent">
+    <app-course [course]="meal.breakfast1"></app-course>
+    <app-course [course]="meal.breakfast2"></app-course>
+  </div>
+
+  <div (click)="toggleAccordian($event)" class="accordionButton">Lunch</div>
+  <div class="accordianContent">
+    <app-course [course]="meal.lunch1"></app-course>
+    <app-course [course]="meal.lunch2"></app-course>
+    <app-course [course]="meal.lunch3"></app-course>
+  </div>
+
+  <div (click)="toggleAccordian($event)" class="accordionButton">Dinner</div>
+  <div class="accordianContent">
+    <app-course [course]="meal.dinner1"></app-course>
+    <app-course [course]="meal.dinner2"></app-course>
+    <app-course [course]="meal.dinner3"></app-course>
+  </div>
+</div>

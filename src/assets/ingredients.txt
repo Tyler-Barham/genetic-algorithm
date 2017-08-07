@@ -1,29 +1,31 @@
 Cornflakes, 0.50
 Mince, 2
-Orange juice, 0.4
-Frozen pea, 0.2
-carrot, 0.1
-cheese, 0.6
-pasta, 0.3
-onion, 0.1
-bread, 3
-margarine, 3
-jam, 2.50
-cornflakes, 5
-oats, 2
-salt, 3
-cheese, 10
-lettuce, 3
-beans, 0.9
-ham, 5 
-noodles, 1
-apple, 0.5
-banana, 0.6
-pear, 0.6
-yoghurt, 0.9
+Orange Juice, 0.4
+Frozen Peas, 0.2
+Carrot, 0.1
+Cheese, 0.6
+Pasta, 0.3
+Onion, 0.1
+Bread, 3
+Margarine, 3
+Jam, 2.50
+Cornflakes, 5
+Oats, 2
+Salt, 3
+Cheese, 10
+Lettuce, 3
+Beans, 0.9
+Ham, 5 
+Noodles, 1
+Apple, 0.5
+Banana, 0.6
+Pear, 0.6
+Yoghurt, 0.9
 Milk, 0.2
 Sugar, 0.1
 Garlic, 1.2
 Muesli, 0.8
 Orange, 0.6
 Yoghurt, 1
+Sachet, 2
+Water, 0

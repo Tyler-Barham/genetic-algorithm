@@ -1,38 +1,40 @@
-Cornflakes, cornflakes, 1
-Cornflakes, milk, 1
-Cornflakes, sugar, 1
-Orange juice, orange juice, 1
-Spaghetti bolognaise, mince, 1
-Spaghetti bolognaise, carrot, 1
-Spaghetti bolognaise, cheese, 1
-Spaghetti bolognaise, pasta, 2
-Spaghetti bolognaise, onion, 1
-Spaghetti bolognaise, carrot, 1
-Spaghetti bolognaise, garlic, 1
-Spaghetti bolognaise, frozen pea, 1
-blackcurrent juice, orange juice, 1
-toast, bread, 0.01
-toast, margarine, 0.01
-toast, jam, 0.01
-porridge, oats, 0.05
-porridge, salt, 0.001
-porridge, milk, 0.1
-cornflakes, milk, 0.1
-cornflakes, cornflakes, 0.1
-muesli, muesli, 0.1
-cheese sandwich, bread, 0.02
-cheese sandwich, margarine, 0.02
-cheese sandwich, cheese, 0.05
-cheese sandwich, lettuce, 0.05
-beans on toast, beans, 1
-beans on toast, bread, 0.01
-ham sandwich, bread, 0.02
-ham sandwich, margarine, 0.02
-ham sandwich, ham, 0.2
-ham sandwich, lettuce, 0.05
-noodles, noodles, 1
-apple, apple, 1
-banana, banana, 1
-orange, orange, 1
-pear, pear, 1
-yoghurt, yoghurt, 1
+Cornflakes, Cornflakes, 1
+Cornflakes, Milk, 1
+Cornflakes, Sugar, 1
+Orange Juice, Orange Juice, 1
+Spaghetti Bolognaise, Mince, 1
+Spaghetti Bolognaise, Carrot, 1
+Spaghetti Bolognaise, Cheese, 1
+Spaghetti Bolognaise, Pasta, 2
+Spaghetti Bolognaise, Onion, 1
+Spaghetti Bolognaise, Carrot, 1
+Spaghetti Bolognaise, Garlic, 1
+Spaghetti Bolognaise, Frozen Peas, 1
+Blackcurrent Juice, Orange Juice, 1
+Toast, Bread, 0.01
+Toast, Margarine, 0.01
+Toast, Jam, 0.01
+Porridge, Oats, 0.05
+Porridge, Salt, 0.001
+Porridge, Milk, 0.1
+Cornflakes, Milk, 0.1
+Cornflakes, Cornflakes, 0.1
+Muesli, Muesli, 0.1
+Cheese Sandwich, Bread, 0.02
+Cheese Sandwich, Margarine, 0.02
+Cheese Sandwich, Cheese, 0.05
+Cheese Sandwich, Lettuce, 0.05
+Beans on Toast, Beans, 1
+Beans on Toast, Bread, 0.01
+Ham Sandwich, Bread, 0.02
+Ham Sandwich, Margarine, 0.02
+Ham Sandwich, Ham, 0.2
+Ham Sandwich, Lettuce, 0.05
+Noodles, Noodles, 1
+Apple, Apple, 1
+Banana, Banana, 1
+Orange, Orange, 1
+Pear, Pear, 1
+Yoghurt, Yoghurt, 1
+Soup, Sachet, 1
+Soup, Water, 1

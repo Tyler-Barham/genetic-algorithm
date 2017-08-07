@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { CourseIngredient } from '../../../models/courseIngredient.model';
+import { CourseIngredient } from '../../../../models/courseIngredient.model';
 
 @Component({
   selector: 'app-ingredient',

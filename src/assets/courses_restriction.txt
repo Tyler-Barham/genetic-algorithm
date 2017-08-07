@@ -1,23 +1,23 @@
 Soup, lunch, 2
 Soup, dinner, 1
-Spaghetti bolognaise, dinner, 2
-orange juice, breakfast, 1
-blackcurrent juice, breakfast, 1
-toast, breakfast, 2
-porridge, breakfast, 2
-cornflakes, breakfast, 2
-muesli, breakfast, 2
-cheese sandwich, lunch, 1
-beans on toast, lunch, 1
-ham sandwich, lunch, 1
-noodles, lunch, 1
-apple, lunch, 2
-apple, dinner, 2
-banana, lunch, 2
-banana, dinner, 2
-orange, lunch, 2
-orange, dinner, 2
-pear, lunch, 2
-pear, dinner, 2
-yoghurt, lunch, 2
-yoghurt, dinner, 2
+Spaghetti Bolognaise, dinner, 2
+Orange Juice, breakfast, 1
+Blackcurrent Juice, breakfast, 1
+Toast, breakfast, 2
+Porridge, breakfast, 2
+Cornflakes, breakfast, 2
+Muesli, breakfast, 2
+Cheese Sandwich, lunch, 1
+Beans on Toast, lunch, 1
+Ham Sandwich, lunch, 1
+Noodles, lunch, 1
+Apple, lunch, 3
+Apple, dinner, 3
+Banana, lunch, 3
+Banana, dinner, 3
+Orange, lunch, 2
+Orange, dinner, 1
+Pear, lunch, 2
+Pear, dinner, 1
+Yoghurt, lunch, 2
+Yoghurt, dinner, 2
