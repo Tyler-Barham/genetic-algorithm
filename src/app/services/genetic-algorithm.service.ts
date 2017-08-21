@@ -19,6 +19,19 @@ export class GeneticAlgorithm {
 
     }
 
+    public generateWeeklyMeals(): Array<DailyMeal> {
+        let weeklyMeals: Array<DailyMeal> = new Array<DailyMeal>();
+        weeklyMeals.push(this.generateDailyMeal());
+        weeklyMeals.push(this.generateDailyMeal());
+        weeklyMeals.push(this.generateDailyMeal());
+        weeklyMeals.push(this.generateDailyMeal());
+        weeklyMeals.push(this.generateDailyMeal());
+        weeklyMeals.push(this.generateDailyMeal());
+        weeklyMeals.push(this.generateDailyMeal());
+
+        return weeklyMeals;
+    }
+
     public generateDailyMeal(): DailyMeal {
         let aDailyMeal: DailyMeal = new DailyMeal();
         let dailyOptions: DailyOptions = this.dailyOptions;

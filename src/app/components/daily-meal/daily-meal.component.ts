@@ -9,7 +9,7 @@ import { DailyMeal } from '../../models/dailyMeal.model';
 export class DailyMealComponent implements OnInit {
 
   @Input()
-  meal: DailyMeal
+  meals: Array<DailyMeal>
 
   constructor() { }
 
@@ -20,12 +20,12 @@ export class DailyMealComponent implements OnInit {
   }
 
   toggleAccordian($event) {
-    let div: HTMLElement = $event.target.nextElementSibling;
+    let div: HTMLElement = $event.target.parentElement.nextElementSibling;
 
-    if (div.style.maxHeight) {
-      div.style.maxHeight = null;
+    if (div.style.display) {
+      div.style.display = null;
     } else {
-      div.style.maxHeight = "0";
+      div.style.display = "table-row";
     }
   }
 
