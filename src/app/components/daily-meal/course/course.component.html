@@ -1,8 +1,9 @@
-<span>
+<div class="courseName">
   {{course.name}}
-</span>
-<ul>
-  <li *ngFor="let ingredient of course.getIngredients()">
+</div>
+
+<div class="ingredientsWrapper">
+  <span *ngFor="let ingredient of course.getIngredients()" class="ingredient">
     <app-ingredient [ingredient]="ingredient"></app-ingredient>
-  </li>
-</ul>
+  </span>
+</div> 

@@ -1,4 +1,5 @@
 <div *ngIf="meal">
+  <h3>Monday</h3>
   <div (click)="toggleAccordian($event)" class="accordionButton">Breakfast</div>
   <div class="accordianContent">
     <app-course [course]="meal.breakfast1"></app-course>

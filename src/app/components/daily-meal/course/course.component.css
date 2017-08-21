@@ -1,0 +1,23 @@
+.courseName {
+    float: left;
+    clear: both;
+    padding: 5px;
+}
+
+.ingredientsWrapper {
+    display: none;
+    background-color: rgb(229, 238, 255);
+    padding: 5px;
+    float: left;
+    border-radius: 5px;
+}
+
+.ingredient {
+    float: left;
+    clear: both;
+    white-space: nowrap;
+}
+
+.courseName:hover ~ .ingredientsWrapper {
+    display: block;
+}
