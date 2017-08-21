@@ -14,6 +14,8 @@ export class GeneticAlgorithm {
     private courses: Array<Course> = Array<Course>();
     private dailyOptions: DailyOptions = new DailyOptions();
     private dailyMeals: Array<DailyMeal> = Array<DailyMeal>();
+    private usedWeeklyOptions: Map<Course, number> = new Map<Course, number>();
+    private usedDailyOptions: Array<Course> = Array<Course>();
 
     constructor(public http: Http) {
 
@@ -21,6 +23,8 @@ export class GeneticAlgorithm {
 
     public generateWeeklyMeals(): Array<DailyMeal> {
         let weeklyMeals: Array<DailyMeal> = new Array<DailyMeal>();
+        this.usedWeeklyOptions = new Map<Course, number>();
+
         weeklyMeals.push(this.generateDailyMeal());
         weeklyMeals.push(this.generateDailyMeal());
         weeklyMeals.push(this.generateDailyMeal());
@@ -35,36 +39,45 @@ export class GeneticAlgorithm {
     public generateDailyMeal(): DailyMeal {
         let aDailyMeal: DailyMeal = new DailyMeal();
         let dailyOptions: DailyOptions = this.dailyOptions;
-        let usedOptions: Array<Course> = Array<Course>();
         let usedMeals: Course = new Course();
+        this.usedDailyOptions = new Array<Course>();
 
-        aDailyMeal.breakfast1 = this.tryFindMeal(usedOptions, dailyOptions.breakfast1);
-        usedOptions.push(aDailyMeal.breakfast1);
-        aDailyMeal.breakfast2 = this.tryFindMeal(usedOptions, dailyOptions.breakfast2);
-        usedOptions.push(aDailyMeal.breakfast2);
-        aDailyMeal.lunch1 = this.tryFindMeal(usedOptions, dailyOptions.lunch1);
-        usedOptions.push(aDailyMeal.lunch1);
-        aDailyMeal.lunch2 = this.tryFindMeal(usedOptions, dailyOptions.lunch2);
-        usedOptions.push(aDailyMeal.lunch2);
-        aDailyMeal.lunch3 = this.tryFindMeal(usedOptions, dailyOptions.lunch3);
-        usedOptions.push(aDailyMeal.lunch3);
-        aDailyMeal.dinner1 = this.tryFindMeal(usedOptions, dailyOptions.dinner1);
-        usedOptions.push(aDailyMeal.dinner1);
-        aDailyMeal.dinner2 = this.tryFindMeal(usedOptions, dailyOptions.dinner2);
-        usedOptions.push(aDailyMeal.dinner2);
-        aDailyMeal.dinner3 = this.tryFindMeal(usedOptions, dailyOptions.dinner3);
-        usedOptions.push(aDailyMeal.dinner3);
+        aDailyMeal.breakfast1 = this.tryFindMeal(dailyOptions.breakfast1);
+        aDailyMeal.breakfast2 = this.tryFindMeal(dailyOptions.breakfast2);
+        aDailyMeal.lunch1 = this.tryFindMeal(dailyOptions.lunch1);
+        aDailyMeal.lunch2 = this.tryFindMeal(dailyOptions.lunch2);
+        aDailyMeal.lunch3 = this.tryFindMeal(dailyOptions.lunch3);
+        aDailyMeal.dinner1 = this.tryFindMeal(dailyOptions.dinner1);
+        aDailyMeal.dinner2 = this.tryFindMeal(dailyOptions.dinner2);
+        aDailyMeal.dinner3 = this.tryFindMeal(dailyOptions.dinner3);
         
         return aDailyMeal;
     }
 
-    private tryFindMeal(alreadyUsedCourses: Array<Course>, coursesToChooseFrom: Array<Course>): Course {
+    private tryFindMeal(coursesToChooseFrom: Array<Course>): Course {
         let courseToReturn: Course;
+        let isValid = true; //Change to false when dataset is large enough
         courseToReturn = this.getRandomFromArray(coursesToChooseFrom);
 
-        while(alreadyUsedCourses.find(course => course == courseToReturn)) {
+        while (!isValid) {
             courseToReturn = this.getRandomFromArray(coursesToChooseFrom);
+
+            if (this.usedWeeklyOptions.has(courseToReturn)) {
+                if (!this.usedDailyOptions.find(course => course == courseToReturn)) {
+                    if (this.usedWeeklyOptions.get(courseToReturn) < 3) {
+                        this.usedWeeklyOptions.set(courseToReturn, this.usedWeeklyOptions.get(courseToReturn) + 1);
+                        isValid = true;
+                    }
+                }
+            } else {
+                this.usedWeeklyOptions.set(courseToReturn, 1);
+                isValid = true;
+            }
+
+            console.log(isValid);
         }
+
+        this.usedDailyOptions.push(courseToReturn);
 
         return courseToReturn;
     }
