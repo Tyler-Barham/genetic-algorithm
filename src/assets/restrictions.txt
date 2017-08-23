@@ -1,0 +1,85 @@
+cornflakes, breakfast, 1
+ricebubbles, breakfast, 1
+weet bix, breakfast, 1
+toast, breakfast, 1
+waffles, breakfast, 1
+pancakes, breakfast, 1
+fruitloops, breakfast, 1
+coco pops, breakfast, 1
+muesli, breakfast, 1
+eggs on toast, breakfast, 1
+eggs on toast, lunch, 1
+beans on toast, breakfast, 1
+beans on toast, lunch, 1
+spaghetti on toast, breakfast, 1
+spaghetti on toast, lunch, 1
+bacon and eggs on toast, breakfast, 1
+banana smoothie, breakfast, 1
+banana smoothie, lunch, 1
+chocolate smoothie, breakfast, 1
+chocolate smoothie, lunch, 1
+strawberry smoothie, breakfast, 1
+strawberry smoothie, lunch, 1
+vanilla smoothie, breakfast, 1
+vanilla smoothie, lunch, 1
+porridge, breakfast, 1
+crumpets, breakfast, 1
+omelette, breakfast, 1
+omelette, lunch, 1
+omelette, dinner, 1
+yoghurt, breakfast, 1
+yoghurt, lunch, 1
+apple, breakfast, 2
+apple, lunch, 2
+banana, breakfast, 2
+banana, lunch, 2
+pear, breakfast, 2
+pear, lunch, 2
+orange, breakfast, 2
+orange, lunch, 2
+orange juice, breakfast, 2
+orange juice, lunch, 2
+apple juice, breakfast, 2
+apple juice, lunch, 2
+blackcurrent juice, breakfast, 2
+blackcurrent juice, lunch, 2
+tea, breakfast, 2
+tea, lunch, 2
+tea, dinner, 2
+coffee, breakfast, 2
+coffee, lunch, 2
+coffee, dinner, 2
+milo, breakfast, 2
+milo, lunch, 2
+milo, dinner, 2
+ham and cheese sandwich, lunch, 1
+spaghetti bolognaise, lunch, 1
+spaghetti bolognaise, dinner, 1
+noodles, lunch, 1
+noodles, dinner, 1
+ham sandwich, lunch, 1
+cheese and onion sandwich, lunch, 1
+curried egg sandwich, lunch, 1
+tuna sandwich, lunch, 1
+turkey burger with fries, lunch, 3
+turkey burger with fries, dinner, 3
+caesar salad, lunch, 1
+caesar salad, dinner, 1
+tomato and goat cheese quiche, lunch, 3
+tomato and goat cheese quiche, dinner, 3
+butter chicken, lunch, 3
+butter chicken, dinner, 1
+steak eggs and chips, dinner, 1
+roast chicken, dinner, 1
+roast pork, dinner, 3
+roast lamb, dinner, 1
+nachos, dinner, 1
+stirfry, dinner, 1
+bangers and mash, dinner, 1
+chicken burger with fries, lunch, 1
+chicken burger with fries, dinner, 1
+shepherds pie, dinner, 1
+beef stew, dinner, 1
+baked potatoes, lunch, 1
+baked potatoes, dinner, 1
+chicken cabonara, dinner, 1

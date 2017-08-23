@@ -1,40 +1,207 @@
-Cornflakes, Cornflakes, 1
-Cornflakes, Milk, 1
-Cornflakes, Sugar, 1
-Orange Juice, Orange Juice, 1
-Spaghetti Bolognaise, Mince, 1
-Spaghetti Bolognaise, Carrot, 1
-Spaghetti Bolognaise, Cheese, 1
-Spaghetti Bolognaise, Pasta, 2
-Spaghetti Bolognaise, Onion, 1
-Spaghetti Bolognaise, Carrot, 1
-Spaghetti Bolognaise, Garlic, 1
-Spaghetti Bolognaise, Frozen Peas, 1
-Blackcurrent Juice, Orange Juice, 1
-Toast, Bread, 0.01
-Toast, Margarine, 0.01
-Toast, Jam, 0.01
-Porridge, Oats, 0.05
-Porridge, Salt, 0.001
-Porridge, Milk, 0.1
-Cornflakes, Milk, 0.1
-Cornflakes, Cornflakes, 0.1
-Muesli, Muesli, 0.1
-Cheese Sandwich, Bread, 0.02
-Cheese Sandwich, Margarine, 0.02
-Cheese Sandwich, Cheese, 0.05
-Cheese Sandwich, Lettuce, 0.05
-Beans on Toast, Beans, 1
-Beans on Toast, Bread, 0.01
-Ham Sandwich, Bread, 0.02
-Ham Sandwich, Margarine, 0.02
-Ham Sandwich, Ham, 0.2
-Ham Sandwich, Lettuce, 0.05
-Noodles, Noodles, 1
-Apple, Apple, 1
-Banana, Banana, 1
-Orange, Orange, 1
-Pear, Pear, 1
-Yoghurt, Yoghurt, 1
-Soup, Sachet, 1
-Soup, Water, 1
+cornflakes, cornflakes, 1
+cornflakes, milk, 1
+cornflakes, sugar, 0.1
+ricebubbles, ricebubbles, 1
+ricebubbles, milk, 1
+ricebubbles, sugar, 0.1
+weet bix, weet bix, 3
+weet bix, milk, 1
+weet bix, sugar, 0.1
+toast, bread, 2
+toast, spread, 0.2
+toast, butter, 0.2
+waffles, flour, 2
+waffles, eggs, 2
+waffles, milk, 1.5
+waffles, baking powder, 4
+waffles, sugar, 0.2
+waffles, salt, 0.25
+waffles, vanilla extract, 0.5
+pancakes, flour, 1
+pancakes, sugar, 0.2
+pancakes, milk, 1
+pancakes, eggs, 1
+pancakes, butter, 0.3
+pancakes, banana, 1
+pancakes, golden syrup, 0.5
+fruitloops, fruitloops, 1
+fruitloops, milk, 1
+fruitloops, sugar, 0.1
+coco pops, coco pops, 1
+coco pops, milk, 1
+muesli, muesli, 1
+muesli, milk, 1
+eggs on toast, bread, 2
+eggs on toast, eggs, 2
+beans on toast, baked beans, 1
+beans on toast, bread, 2
+spaghetti on toast, spaghetti, 1
+spaghetti on toast, bread, 2
+bacon and eggs on toast, bacon, 2
+bacon and eggs on toast, eggs, 2
+bacon and eggs on toast, bread, 2
+banana smoothie, banana, 1
+banana smoothie, milk, 0.25
+banana smoothie, orange, 0.5
+banana smoothie, greek yoghurt, 0.3
+banana smoothie, honey, 2
+chocolate smoothie, milk, 1
+chocolate smoothie, cocoa powder, 0.2
+chocolate smoothie, maple syrup, 0.1
+strawberry smoothie, strawberries, 10
+strawberry smoothie, yoghurt, 0.5
+strawberry smoothie, milk, 0.5
+strawberry smoothie, orange juice, 0.5
+vanilla smoothie, greek yoghurt, 1
+vanilla smoothie, milk, 0.5
+vanilla smoothie, vanilla extract, 2
+vanilla smoothie, sugar, 0.05
+porridge, rolled oats, 1
+porridge, milk, 1
+porridge, maple syrup, 0.25
+crumpets, crumpets, 2
+crumpets, butter, 0.2
+crumpets, golden syrup, 0.25
+omelette, eggs, 2
+omelette, salt, 0.001
+omelette, pepper, 0.001
+omelette, butter, 0.1
+omelette, cheese, 0.3
+omelette, ham, 0.3
+yoghurt, yoghurt, 1
+apple, apple, 1
+banana, banana, 1
+pear, pear, 1
+orange, orange, 1
+orange juice, orange juice, 1
+apple juice, apple juice, 1
+blackcurrent juice, blackcurrent juice, 1
+tea, water, 1
+tea, tea bag, 1
+tea, sugar, 1
+tea, milk, 0.2
+coffee, water, 1
+coffee, coffee, 1
+coffee, sugar, 1
+coffee, milk, 0.2
+milo, milo, 2
+milo, milk, 0.2
+milo, water, 1
+ham and cheese sandwich, bread, 2
+ham and cheese sandwich, butter, 0.4
+ham and cheese sandwich, ham, 0.5
+ham and cheese sandwich, cheese, 0.5
+spaghetti bolognaise, mince, 1
+spaghetti bolognaise, cheese, 1
+spaghetti bolognaise, pasta, 2
+spaghetti bolognaise, onion, 1
+spaghetti bolognaise, carrot, 1
+spaghetti bolognaise, garlic, 1
+spaghetti bolognaise, frozen peas, 1
+noodles, noodles, 1
+ham sandwich, bread, 2
+ham sandwich, butter, 0.4
+ham sandwich, ham, 0.5
+cheese and onion sandwich, bread, 2
+cheese and onion sandwich, butter, 0.4
+cheese and onion sandwich, cheese, 0.5
+cheese and onion sandwich, onion, 0.5
+curried egg sandwich, bread, 2
+curried egg sandwich, eggs, 2
+curried egg sandwich, curry, 0.02
+curried egg sandwich, milk, 0.2
+tuna sandwich, bread, 2
+tuna sandwich, tuna, 1
+turkey burger with fries, buns, 1
+turkey burger with fries, turkey, 0.5
+turkey burger with fries, lettace, 0.3
+turkey burger with fries, tomato, 0.3
+turkey burger with fries, cheese, 0.3
+turkey burger with fries, potato, 2
+caesar salad, lettace, 0.5
+caesar salad, chicken, 0.3
+caesar salad, bacon, 0.3
+caesar salad, tomato, 0.3
+caesar salad, feta cheese, 0.2
+tomato and goat cheese quiche, pastry, 1
+tomato and goat cheese quiche, eggs, 2
+tomato and goat cheese quiche, tomato, 1
+tomato and goat cheese quiche, goat cheese, 0.5
+tomato and goat cheese quiche, pepper, 0.02
+butter chicken, chicken, 1
+butter chicken, cream, 1
+butter chicken, chilli powder, 0.01
+butter chicken, onion, 0.5
+butter chicken, rice, 1
+butter chicken, cumin, 0.01
+steak eggs and chips, steak, 1
+steak eggs and chips, eggs, 2
+steak eggs and chips, potato, 2
+roast chicken, chicken, 1
+roast chicken, potato, 1
+roast chicken, kumara, 1
+roast chicken, parsnip, 1
+roast chicken, broccoli, 0.3
+roast chicken, cauliflower, 0.3
+roast chicken, gravy, 0.5
+roast pork, pork, 1
+roast pork, potato, 1
+roast pork, kumara, 1
+roast pork, parsnip, 1
+roast pork, broccoli, 0.3
+roast pork, cauliflower, 0.3
+roast pork, apple sauce, 0.5
+roast lamb, lamb, 1
+roast lamb, potato, 1
+roast lamb, kumara, 1
+roast lamb, parsnip, 1
+roast lamb, broccoli, 0.3
+roast lamb, cauliflower, 0.3
+roast lamb, mint sauce, 0.5
+nachos, mince, 1
+nachos, corn chips, 1
+nachos, salsa, 0.4
+nachos, sour cream, 0.3
+nachos, cheese, 0.5
+stirfry, noodles, 1
+stirfry, beef, 1
+stirfry, beans, 0.4
+stirfry, carrot, 0.4
+stirfry, soy sauce, 0.5
+bangers and mash, sausages, 2
+bangers and mash, potato, 2
+bangers and mash, butter, 0.3
+bangers and mash, milk, 0.2
+chicken burger with fries, buns, 1
+chicken burger with fries, chicken, 0.5
+chicken burger with fries, lettace, 0.3
+chicken burger with fries, tomato, 0.3
+chicken burger with fries, cheese, 0.3
+chicken burger with fries, potato, 2
+shepherds pie, mince, 1
+shepherds pie, gravy, 1
+shepherds pie, frozen peas, 0.5
+shepherds pie, frozen corn, 0.5
+shepherds pie, potato, 2
+shepherds pie, butter, 0.3
+shepherds pie, milk, 0.2
+shepherds pie, cheese, 1
+beef stew, beef, 1
+beef stew, potato, 2
+beef stew, butter, 0.3
+beef stew, milk, 0.2
+beef stew, gravy, 2
+beef stew, onion, 1
+beef stew, frozen peas, 0.5
+beef stew, frozen corn, 0.5
+baked potatoes, potato, 2
+baked potatoes, butter, 0.3
+baked potatoes, milk, 0.2
+baked potatoes, bacon, 3
+baked potatoes, cheese, 1
+baked potatoes, onion, 0.5
+chicken cabonara, chicken, 1
+chicken cabonara, cabonara sauce, 1
+chicken cabonara, pasta, 1
+chicken cabonara, onion, 0.5
+chicken cabonara, mushroom, 4

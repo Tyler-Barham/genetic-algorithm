@@ -6,6 +6,7 @@ import { Ingredient } from '../models/ingredient.model';
 import { Course, CourseTime } from '../models/course.model';
 import { DailyOptions } from '../models/dailyOptions.model';
 import { DailyMeal } from '../models/dailyMeal.model';
+import { UniqueMeal } from '../models/uniqueMeal.model'
 
 @Injectable()
 export class GeneticAlgorithm {
@@ -16,6 +17,9 @@ export class GeneticAlgorithm {
     private dailyMeals: Array<DailyMeal> = Array<DailyMeal>();
     private usedWeeklyOptions: Map<Course, number> = new Map<Course, number>();
     private usedDailyOptions: Array<Course> = Array<Course>();
+    private uniqueBreakfasts: Array<UniqueMeal> = Array<UniqueMeal>();
+    private uniqueLunches: Array<UniqueMeal> = Array<UniqueMeal>();
+    private uniqueDinners: Array<UniqueMeal> = Array<UniqueMeal>();
 
     constructor(public http: Http) {
 
@@ -24,6 +28,9 @@ export class GeneticAlgorithm {
     public generateWeeklyMeals(): Array<DailyMeal> {
         let weeklyMeals: Array<DailyMeal> = new Array<DailyMeal>();
         this.usedWeeklyOptions = new Map<Course, number>();
+        this.uniqueBreakfasts = new Array<UniqueMeal>();
+        this.uniqueLunches = new Array<UniqueMeal>();
+        this.uniqueDinners = new Array<UniqueMeal>();
 
         weeklyMeals.push(this.generateDailyMeal());
         weeklyMeals.push(this.generateDailyMeal());
@@ -36,22 +43,76 @@ export class GeneticAlgorithm {
         return weeklyMeals;
     }
 
-    public generateDailyMeal(): DailyMeal {
+    private generateDailyMeal(): DailyMeal {
         let aDailyMeal: DailyMeal = new DailyMeal();
         let dailyOptions: DailyOptions = this.dailyOptions;
         let usedMeals: Course = new Course();
+        let uniqueMeal: UniqueMeal = new UniqueMeal();
+        let isUnique: boolean = false;
         this.usedDailyOptions = new Array<Course>();
 
-        aDailyMeal.breakfast1 = this.tryFindMeal(dailyOptions.breakfast1);
-        aDailyMeal.breakfast2 = this.tryFindMeal(dailyOptions.breakfast2);
-        aDailyMeal.lunch1 = this.tryFindMeal(dailyOptions.lunch1);
-        aDailyMeal.lunch2 = this.tryFindMeal(dailyOptions.lunch2);
-        aDailyMeal.lunch3 = this.tryFindMeal(dailyOptions.lunch3);
-        aDailyMeal.dinner1 = this.tryFindMeal(dailyOptions.dinner1);
-        aDailyMeal.dinner2 = this.tryFindMeal(dailyOptions.dinner2);
-        aDailyMeal.dinner3 = this.tryFindMeal(dailyOptions.dinner3);
-        
+        while (!isUnique) {
+            aDailyMeal.breakfast1 = this.tryFindMeal(dailyOptions.breakfast1);
+            aDailyMeal.breakfast2 = this.tryFindMeal(dailyOptions.breakfast2);
+            uniqueMeal = this.storeUniqueMeals(aDailyMeal.breakfast1, aDailyMeal.breakfast2, null);
+
+            if (!this.uniqueBreakfasts.find(meal => (
+                meal.course1 == uniqueMeal.course1 &&
+                meal.course2 == uniqueMeal.course2 &&
+                meal.course3 == uniqueMeal.course3
+            ))) {
+                isUnique = true;
+                this.uniqueBreakfasts.push(uniqueMeal);
+            }
+        }
+
+        isUnique = false;
+
+        while (!isUnique) {
+            aDailyMeal.lunch1 = this.tryFindMeal(dailyOptions.lunch1);
+            aDailyMeal.lunch2 = this.tryFindMeal(dailyOptions.lunch2);
+            aDailyMeal.lunch3 = this.tryFindMeal(dailyOptions.lunch3);
+            uniqueMeal = this.storeUniqueMeals(aDailyMeal.lunch1, aDailyMeal.lunch2, aDailyMeal.lunch3);
+
+            if (!this.uniqueBreakfasts.find(meal => (
+                meal.course1 == uniqueMeal.course1 &&
+                meal.course2 == uniqueMeal.course2 &&
+                meal.course3 == uniqueMeal.course3
+            ))) {
+                isUnique = true;
+                this.uniqueBreakfasts.push(uniqueMeal);
+            }
+        }
+
+        isUnique = false;
+
+        while (!isUnique) {
+            aDailyMeal.dinner1 = this.tryFindMeal(dailyOptions.dinner1);
+            aDailyMeal.dinner2 = this.tryFindMeal(dailyOptions.dinner2);
+            aDailyMeal.dinner3 = this.tryFindMeal(dailyOptions.dinner3);
+            uniqueMeal = this.storeUniqueMeals(aDailyMeal.dinner1, aDailyMeal.dinner2, aDailyMeal.dinner3);
+
+            if (!this.uniqueBreakfasts.find(meal => (
+                meal.course1 == uniqueMeal.course1 &&
+                meal.course2 == uniqueMeal.course2 &&
+                meal.course3 == uniqueMeal.course3
+            ))) {
+                isUnique = true;
+                this.uniqueBreakfasts.push(uniqueMeal);
+            }
+        }
+
         return aDailyMeal;
+    }
+
+    private storeUniqueMeals(course1: Course, course2: Course, course3: Course): UniqueMeal {
+        let aUniqueMeal: UniqueMeal = new UniqueMeal();
+
+        aUniqueMeal.course1 = course1;
+        aUniqueMeal.course2 = course2;
+        aUniqueMeal.course3 = course3;
+
+        return aUniqueMeal;
     }
 
     private tryFindMeal(coursesToChooseFrom: Array<Course>): Course {
@@ -63,7 +124,10 @@ export class GeneticAlgorithm {
             courseToReturn = this.getRandomFromArray(coursesToChooseFrom);
 
             if (this.usedWeeklyOptions.has(courseToReturn)) {
-                if (!this.usedDailyOptions.find(course => course == courseToReturn)) {
+                if (!this.usedDailyOptions.find(course => (
+                    course == courseToReturn
+                    //TODO: check this is accurate
+                ))) {
                     if (this.usedWeeklyOptions.get(courseToReturn) < 3) {
                         this.usedWeeklyOptions.set(courseToReturn, this.usedWeeklyOptions.get(courseToReturn) + 1);
                         isValid = true;
@@ -139,7 +203,7 @@ export class GeneticAlgorithm {
     }
 
     private readCourseRestrictions(): Promise<null> {
-        return this.http.get('assets/courses_restriction.txt', null)
+        return this.http.get('assets/restrictions.txt', null)
         .toPromise()
         .then( res => {
             let lines: string[];
