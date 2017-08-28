@@ -6,7 +6,9 @@ import { Ingredient } from '../models/ingredient.model';
 import { Course, CourseTime } from '../models/course.model';
 import { DailyOptions } from '../models/dailyOptions.model';
 import { DailyMeal } from '../models/dailyMeal.model';
-import { UniqueMeal } from '../models/uniqueMeal.model'
+import { UniqueMeal } from '../models/uniqueMeal.model';
+import { WeeklyMeal } from '../models/weeklyMeal.model';
+import { CourseIngredient } from '../models/courseIngredient.model';
 
 @Injectable()
 export class GeneticAlgorithm {
@@ -21,27 +23,108 @@ export class GeneticAlgorithm {
     private uniqueLunches: Array<UniqueMeal> = Array<UniqueMeal>();
     private uniqueDinners: Array<UniqueMeal> = Array<UniqueMeal>();
 
+    private populationSize: number = 100;
+    private weeklyMealsPopulation: Array<WeeklyMeal> = new Array<WeeklyMeal>();
+    private totalPrice: number;
+    private totalFitness: number;
+
     constructor(public http: Http) {
 
     }
 
-    public generateWeeklyMeals(): Array<DailyMeal> {
-        let weeklyMeals: Array<DailyMeal> = new Array<DailyMeal>();
+    public fillInitialPopulation(): void {
+        this.totalPrice = 0;
+        while (this.weeklyMealsPopulation.length < this.populationSize) {
+            let anItem = this.generateWeeksMeals();
+            this.totalPrice += anItem.price;
+            this.weeklyMealsPopulation.push(anItem);
+        }
+    }
+
+    public createChildPopulation(): void {
+        let newGeneration: Array<WeeklyMeal> = new Array<WeeklyMeal>();
+        let parents: Array<WeeklyMeal> = this.weeklyMealsPopulation.slice();
+        let lastPosition: number = 0;
+        this.totalFitness = 0;
+
+        parents.forEach(item => {
+            item.rouletStart = lastPosition + 1;
+            let fitness: number = this.totalPrice - item.price;
+            item.rouletEnd = fitness + item.rouletStart;
+            lastPosition = fitness;
+            this.totalFitness += fitness;
+        });
+
+        while (parents.length > 0) {
+            let pointer = Math.floor((Math.random() * this.totalFitness) + 1);
+            let parent1 = parents.find(item => (pointer > item.rouletStart && pointer < item.rouletEnd));
+            let parent2 = parents.find(item => (pointer > item.rouletStart && pointer < item.rouletEnd));
+
+            console.log("Need to reproduce with the parents here");
+
+            let index1 = parents.indexOf(parent1);
+            parents.splice(index1, 1);
+
+            let index2 = parents.indexOf(parent2);
+            parents.splice(index2, 1);
+        }
+        
+        console.log("createChildComplete")
+    }
+
+    private findPairOfChromosomes(): Array<WeeklyMeal> {
+        return null;
+    }
+
+    public findCheapestMeal(): WeeklyMeal {
+        let cheapestWeek: WeeklyMeal = new WeeklyMeal();
+        cheapestWeek.price = Number.MAX_SAFE_INTEGER;
+
+        this.weeklyMealsPopulation.forEach(weeksMeal => {
+            if (weeksMeal.price < cheapestWeek.price) {
+                cheapestWeek = weeksMeal;
+            }
+        });
+
+        return cheapestWeek;
+    }
+
+    private generateWeeksMeals(): WeeklyMeal {
+        let weeklyMeal: WeeklyMeal = new WeeklyMeal();
         this.usedWeeklyOptions = new Map<Course, number>();
         this.uniqueBreakfasts = new Array<UniqueMeal>();
         this.uniqueLunches = new Array<UniqueMeal>();
         this.uniqueDinners = new Array<UniqueMeal>();
 
-        weeklyMeals.push(this.generateDailyMeal());
-        weeklyMeals.push(this.generateDailyMeal());
-        weeklyMeals.push(this.generateDailyMeal());
-        weeklyMeals.push(this.generateDailyMeal());
-        weeklyMeals.push(this.generateDailyMeal());
-        weeklyMeals.push(this.generateDailyMeal());
-        weeklyMeals.push(this.generateDailyMeal());
+        for (let i: number = 0; i < 7; i++) {
+            weeklyMeal.aDaysMeal[i] = this.generateDailyMeal();
+        }
 
-        return weeklyMeals;
+        let price: number = 0;
+
+        weeklyMeal.aDaysMeal.forEach(meal => {
+            price += this.calculatePrice(meal.breakfast1.ingredients);
+            price += this.calculatePrice(meal.breakfast2.ingredients);
+            price += this.calculatePrice(meal.lunch1.ingredients);
+            price += this.calculatePrice(meal.lunch2.ingredients);
+            price += this.calculatePrice(meal.lunch3.ingredients);
+            price += this.calculatePrice(meal.dinner1.ingredients);
+            price += this.calculatePrice(meal.dinner2.ingredients);
+            price += this.calculatePrice(meal.dinner3.ingredients);
+          });
+          
+          weeklyMeal.price = price;
+
+        return weeklyMeal;
     }
+
+    private calculatePrice(array: Array<CourseIngredient>): number {
+        let price: number = 0;
+        array.forEach(element => {
+          price += element.ingredient.price * element.quantity;
+        });
+        return price;
+      }
 
     private generateDailyMeal(): DailyMeal {
         let aDailyMeal: DailyMeal = new DailyMeal();
@@ -117,7 +200,7 @@ export class GeneticAlgorithm {
 
     private tryFindMeal(coursesToChooseFrom: Array<Course>): Course {
         let courseToReturn: Course;
-        let isValid = true; //Change to false when dataset is large enough
+        let isValid = false; //Change to false when dataset is large enough
         courseToReturn = this.getRandomFromArray(coursesToChooseFrom);
 
         while (!isValid) {
@@ -126,7 +209,6 @@ export class GeneticAlgorithm {
             if (this.usedWeeklyOptions.has(courseToReturn)) {
                 if (!this.usedDailyOptions.find(course => (
                     course == courseToReturn
-                    //TODO: check this is accurate
                 ))) {
                     if (this.usedWeeklyOptions.get(courseToReturn) < 3) {
                         this.usedWeeklyOptions.set(courseToReturn, this.usedWeeklyOptions.get(courseToReturn) + 1);
@@ -137,8 +219,6 @@ export class GeneticAlgorithm {
                 this.usedWeeklyOptions.set(courseToReturn, 1);
                 isValid = true;
             }
-
-            console.log(isValid);
         }
 
         this.usedDailyOptions.push(courseToReturn);

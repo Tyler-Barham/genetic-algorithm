@@ -5,6 +5,9 @@ import { Ingredient } from './models/ingredient.model';
 import { Course } from './models/course.model';
 import { DailyMeal } from './models/dailyMeal.model';
 import { CourseIngredient } from './models/courseIngredient.model';
+import { WeeklyMeal } from './models/weeklyMeal.model';
+
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'app-root',
@@ -14,8 +17,9 @@ import { CourseIngredient } from './models/courseIngredient.model';
 export class AppComponent {
   title = 'app';
 
-  public meals: Array<DailyMeal>;
-  public price: string;
+  public weeklyMeal: WeeklyMeal = new WeeklyMeal();
+  private initialPrice: number = 0;
+  private generations: number = 0;
 
   constructor(public geneticAlgorithm: GeneticAlgorithm) {
     this.getDataFromTextFiles();
@@ -24,34 +28,28 @@ export class AppComponent {
   private getDataFromTextFiles(): void {
     this.geneticAlgorithm.readTextFiles().then(res => {
       console.log(res);
-      this.getNewMeals();
     });
   }
 
-  private getNewMeals(): void {
-    this.meals = this.geneticAlgorithm.generateWeeklyMeals();
-
-    let price: number = 0;
-
-    this.meals.forEach(meal => {
-      price += this.calculatePrice(meal.breakfast1.ingredients);
-      price += this.calculatePrice(meal.breakfast2.ingredients);
-      price += this.calculatePrice(meal.lunch1.ingredients);
-      price += this.calculatePrice(meal.lunch2.ingredients);
-      price += this.calculatePrice(meal.lunch3.ingredients);
-      price += this.calculatePrice(meal.dinner1.ingredients);
-      price += this.calculatePrice(meal.dinner2.ingredients);
-      price += this.calculatePrice(meal.dinner3.ingredients);
-    });
+  private startGeneticAlgorith(): void {
+    this.geneticAlgorithm.fillInitialPopulation()
+    this.initialPrice = this.geneticAlgorithm.findCheapestMeal().price;
     
-    this.price = price.toFixed(2);
+    this.startAsyncReproduction().then(() => {
+      this.getCheapestMeal();
+      this.generations = 0;
+    });
   }
 
-  private calculatePrice(array: Array<CourseIngredient>): number {
-    let price: number = 0;
-    array.forEach(element => {
-      price += element.ingredient.price * element.quantity;
-    });
-    return price;
+  private getCheapestMeal(): void {
+    this.weeklyMeal = this.geneticAlgorithm.findCheapestMeal();
   }
+
+  private async startAsyncReproduction() {
+    if (this.generations++ < 100) {
+      this.geneticAlgorithm.createChildPopulation();
+      this.startAsyncReproduction();
+    }
+  }
+
 }
