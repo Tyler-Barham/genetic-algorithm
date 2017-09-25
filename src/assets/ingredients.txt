@@ -1,29 +1,86 @@
-Cornflakes, 0.50
-Mince, 2
-Orange juice, 0.4
-Frozen pea, 0.2
-carrot, 0.1
-cheese, 0.6
-pasta, 0.3
-onion, 0.1
-bread, 3
-margarine, 3
-jam, 2.50
-cornflakes, 5
-oats, 2
-salt, 3
-cheese, 10
-lettuce, 3
-beans, 0.9
-ham, 5 
+cornflakes, 1
+milk, 1
+sugar, 1
+ricebubbles, 1
+weet bix, 1
+bread, 0.2
+spread, 0.2
+butter, 0.3
+flour, 0.2
+eggs, 0.5
+baking powder, 0.05
+salt, 0.01
+vanilla extract, 0.5
+banana, 0.7
+golden syrup, 0.2
+fruitloops, 1
+coco pops, 1
+muesli, 1
+baked beans, 1.2
+spaghetti, 1.2
+bacon, 0.5
+orange, 1
+greek yoghurt, 5.0
+honey, 0.5
+cocoa powder, 0.3
+maple syrup, 0.2
+strawberries, 0.6
+yoghurt, 5.0
+orange juice, 1
+vanilla extract, 0.4
+rolled oats, 1.2
+crumpets, 0.8
+pepper, 0.02
+cheese, 8.0
+ham, 4.0
+apple, 1
+pear, 1
+apple juice, 1
+blackcurrent juice, 1
+water, 0.5
+coffee, 3.5
+tea bag, 3.5
+milo, 2.5
+mince, 3.0
+pasta, 2.9
+onion, 1.4
+carrot, 0.8
+garlic, 0.3
+frozen peas, 1.4
 noodles, 1
-apple, 0.5
-banana, 0.6
-pear, 0.6
-yoghurt, 0.9
-Milk, 0.2
-Sugar, 0.1
-Garlic, 1.2
-Muesli, 0.8
-Orange, 0.6
-Yoghurt, 1
+curry, 0.03
+tuna, 0.9
+buns, 1
+turkey, 3.2
+lettace, 1.2
+tomato, 1.2
+potato, 1.2
+chicken, 3.2
+feta cheese, 1.3
+pastry, 2.2
+goat cheese, 3.3
+cream, 1.2
+chilli powder, 0.01
+rice, 3
+cumin, 0.02
+steak, 3.6
+kumara, 1.2
+parsnip, 1.2
+broccoli, 3.99
+cauliflower, 4.99
+gravy, 2.3
+pork, 4.9
+apple sauce, 2.80
+lamb, 4.96
+mint sauce, 3.2
+corn chips, 2.40
+salsa, 2.5
+sour cream, 3.3
+beef, 4.2
+beans, 3.4
+soy sauce, 3.2
+sausages, 1.2
+buns, 0.2
+frozen corn, 1.5
+cabonara sauce, 2.4
+mushroom, 0.3

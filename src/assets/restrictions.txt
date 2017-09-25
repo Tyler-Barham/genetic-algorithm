@@ -1,0 +1,432 @@
+cornflakes, breakfast, 1
+cornflakes, breakfast, 2
+cornflakes, lunch, 1
+cornflakes, lunch, 2
+cornflakes, lunch, 2
+cornflakes, dinner, 1
+cornflakes, dinner, 2
+cornflakes, dinner, 3
+ricebubbles, breakfast, 1
+ricebubbles, breakfast, 2
+ricebubbles, lunch, 1
+ricebubbles, lunch, 2
+ricebubbles, lunch, 3
+ricebubbles, dinner, 1
+ricebubbles, dinner, 2
+ricebubbles, dinner, 3
+weet bix, breakfast, 1
+weet bix, breakfast, 2
+weet bix, lunch, 1
+weet bix, lunch, 2
+weet bix, lunch, 3
+weet bix, dinner, 1
+weet bix, dinner, 2
+weet bix, dinner, 3
+toast, breakfast, 1
+toast, breakfast, 2
+toast, lunch, 1
+toast, lunch, 2
+toast, lunch, 3
+toast, dinner, 1
+toast, dinner, 2
+toast, dinner, 3
+waffles, breakfast, 1
+waffles, breakfast, 2
+waffles, lunch, 1
+waffles, lunch, 2
+waffles, lunch, 3
+waffles, dinner, 1
+waffles, dinner, 2
+waffles, dinner, 3
+pancakes, breakfast, 1
+pancakes, breakfast, 2
+pancakes, lunch, 1
+pancakes, lunch, 2
+pancakes, lunch, 3
+pancakes, dinner, 1
+pancakes, dinner, 2
+pancakes, dinner, 3
+fruitloops, breakfast, 1
+fruitloops, breakfast, 2
+fruitloops, lunch, 1
+fruitloops, lunch, 2
+fruitloops, lunch, 3
+fruitloops, dinner, 1
+fruitloops, dinner, 2
+fruitloops, dinner, 3
+coco pops, breakfast, 1
+coco pops, breakfast, 2
+coco pops, lunch, 1
+coco pops, lunch, 2
+coco pops, lunch, 3
+coco pops, dinner, 1
+coco pops, dinner, 2
+coco pops, dinner, 3
+muesli, breakfast, 1
+muesli, breakfast, 2
+muesli, lunch, 1
+muesli, lunch, 2
+muesli, lunch, 3
+muesli, dinner, 1
+muesli, dinner, 2
+muesli, dinner, 3
+eggs on toast, breakfast, 1
+eggs on toast, breakfast, 2
+eggs on toast, lunch, 1
+eggs on toast, lunch, 2
+eggs on toast, lunch, 3
+eggs on toast, dinner, 1
+eggs on toast, dinner, 2
+eggs on toast, dinner, 3
+beans on toast, breakfast, 1
+beans on toast, breakfast, 2
+beans on toast, lunch, 1
+beans on toast, lunch, 2
+beans on toast, lunch, 3
+beans on toast, dinner, 1
+beans on toast, dinner, 2
+beans on toast, dinner, 3
+spaghetti on toast, breakfast, 1
+spaghetti on toast, breakfast, 2
+spaghetti on toast, lunch, 1
+spaghetti on toast, lunch, 2
+spaghetti on toast, lunch, 3
+spaghetti on toast, dinner, 1
+spaghetti on toast, dinner, 2
+spaghetti on toast, dinner, 3
+bacon and eggs on toast, breakfast, 1
+bacon and eggs on toast, breakfast, 2
+bacon and eggs on toast, lunch, 1
+bacon and eggs on toast, lunch, 2
+bacon and eggs on toast, lunch, 3
+bacon and eggs on toast, dinner, 1
+bacon and eggs on toast, dinner, 2
+bacon and eggs on toast, dinner, 3
+banana smoothie, breakfast, 1
+banana smoothie, breakfast, 2
+banana smoothie, lunch, 1
+banana smoothie, lunch, 2
+banana smoothie, lunch, 3
+banana smoothie, dinner, 1
+banana smoothie, dinner, 2
+banana smoothie, dinner, 3
+chocolate smoothie, breakfast, 1
+chocolate smoothie, breakfast, 2
+chocolate smoothie, lunch, 1
+chocolate smoothie, lunch, 2
+chocolate smoothie, lunch, 3
+chocolate smoothie, dinner, 1
+chocolate smoothie, dinner, 2
+chocolate smoothie, dinner, 3
+strawberry smoothie, breakfast, 1
+strawberry smoothie, breakfast, 2
+strawberry smoothie, lunch, 1
+strawberry smoothie, lunch, 2
+strawberry smoothie, lunch, 3
+strawberry smoothie, dinner, 1
+strawberry smoothie, dinner, 2
+strawberry smoothie, dinner, 3
+vanilla smoothie, breakfast, 1
+vanilla smoothie, breakfast, 2
+vanilla smoothie, lunch, 1
+vanilla smoothie, lunch, 2
+vanilla smoothie, lunch, 3
+vanilla smoothie, dinner, 1
+vanilla smoothie, dinner, 2
+vanilla smoothie, dinner, 3
+porridge, breakfast, 1
+porridge, breakfast, 2
+porridge, lunch, 1
+porridge, lunch, 2
+porridge, lunch, 3
+porridge, dinner, 1
+porridge, dinner, 2
+porridge, dinner, 3
+crumpets, breakfast, 1
+crumpets, breakfast, 2
+crumpets, lunch, 1
+crumpets, lunch, 2
+crumpets, lunch, 3
+crumpets, dinner, 1
+crumpets, dinner, 2
+crumpets, dinner, 3
+omelette, breakfast, 1
+omelette, breakfast, 2
+omelette, lunch, 1
+omelette, lunch, 2
+omelette, lunch, 3
+omelette, dinner, 1
+omelette, dinner, 2
+omelette, dinner, 3
+yoghurt, breakfast, 1
+yoghurt, breakfast, 2
+yoghurt, lunch, 1
+yoghurt, lunch, 2
+yoghurt, lunch, 3
+yoghurt, dinner, 1
+yoghurt, dinner, 2
+yoghurt, dinner, 3
+apple, breakfast, 1
+apple, breakfast, 2
+apple, lunch, 1
+apple, lunch, 2
+apple, lunch, 3
+apple, dinner, 1
+apple, dinner, 2
+apple, dinner, 3
+banana, breakfast, 1
+banana, breakfast, 2
+banana, lunch, 1
+banana, lunch, 2
+banana, lunch, 3
+banana, dinner, 1
+banana, dinner, 2
+banana, dinner, 3
+pear, breakfast, 1
+pear, breakfast, 2
+pear, lunch, 1
+pear, lunch, 2
+pear, lunch, 3
+pear, dinner, 1
+pear, dinner, 2
+pear, dinner, 3
+orange, breakfast, 1
+orange, breakfast, 2
+orange, lunch, 1
+orange, lunch, 2
+orange, lunch, 3
+orange, dinner, 1
+orange, dinner, 2
+orange, dinner, 3
+orange juice, breakfast, 1
+orange juice, breakfast, 2
+orange juice, lunch, 1
+orange juice, lunch, 2
+orange juice, lunch, 3
+orange juice, dinner, 1
+orange juice, dinner, 2
+orange juice, dinner, 3
+apple juice, breakfast, 1
+apple juice, breakfast, 2
+apple juice, lunch, 1
+apple juice, lunch, 2
+apple juice, lunch, 3
+apple juice, dinner, 1
+apple juice, dinner, 2
+apple juice, dinner, 3
+blackcurrent juice, breakfast, 1
+blackcurrent juice, breakfast, 2
+blackcurrent juice, lunch, 1
+blackcurrent juice, lunch, 2
+blackcurrent juice, lunch, 3
+blackcurrent juice, dinner, 1
+blackcurrent juice, dinner, 2
+blackcurrent juice, dinner, 3
+tea, breakfast, 1
+tea, breakfast, 2
+tea, lunch, 1
+tea, lunch, 2
+tea, lunch, 3
+tea, dinner, 1
+tea, dinner, 2
+tea, dinner, 3
+coffee, breakfast, 1
+coffee, breakfast, 2
+coffee, lunch, 1
+coffee, lunch, 2
+coffee, lunch, 3
+coffee, dinner, 1
+coffee, dinner, 2
+coffee, dinner, 3
+milo, breakfast, 1
+milo, breakfast, 2
+milo, lunch, 1
+milo, lunch, 2
+milo, lunch, 3
+milo, dinner, 1
+milo, dinner, 2
+milo, dinner, 3
+ham and cheese sandwich, breakfast, 1
+ham and cheese sandwich, breakfast, 2
+ham and cheese sandwich, lunch, 1
+ham and cheese sandwich, lunch, 2
+ham and cheese sandwich, lunch, 3
+ham and cheese sandwich, dinner, 1
+ham and cheese sandwich, dinner, 2
+ham and cheese sandwich, dinner, 3
+spaghetti bolognaise, breakfast, 1
+spaghetti bolognaise, breakfast, 2
+spaghetti bolognaise, lunch, 1
+spaghetti bolognaise, lunch, 2
+spaghetti bolognaise, lunch, 3
+spaghetti bolognaise, dinner, 1
+spaghetti bolognaise, dinner, 2
+spaghetti bolognaise, dinner, 3
+noodles, breakfast, 1
+noodles, breakfast, 2
+noodles, lunch, 1
+noodles, lunch, 2
+noodles, lunch, 3
+noodles, dinner, 1
+noodles, dinner, 2
+noodles, dinner, 3
+ham sandwich, breakfast, 1
+ham sandwich, breakfast, 2
+ham sandwich, lunch, 1
+ham sandwich, lunch, 2
+ham sandwich, lunch, 3
+ham sandwich, dinner, 1
+ham sandwich, dinner, 2
+ham sandwich, dinner, 3
+cheese and onion sandwich, breakfast, 1
+cheese and onion sandwich, breakfast, 2
+cheese and onion sandwich, lunch, 1
+cheese and onion sandwich, lunch, 2
+cheese and onion sandwich, lunch, 3
+cheese and onion sandwich, dinner, 1
+cheese and onion sandwich, dinner, 2
+cheese and onion sandwich, dinner, 3
+curried egg sandwich, breakfast, 1
+curried egg sandwich, breakfast, 2
+curried egg sandwich, lunch, 1
+curried egg sandwich, lunch, 2
+curried egg sandwich, lunch, 3
+curried egg sandwich, dinner, 1
+curried egg sandwich, dinner, 2
+curried egg sandwich, dinner, 3
+tuna sandwich, breakfast, 1
+tuna sandwich, breakfast, 2
+tuna sandwich, lunch, 1
+tuna sandwich, lunch, 2
+tuna sandwich, lunch, 3
+tuna sandwich, dinner, 1
+tuna sandwich, dinner, 2
+tuna sandwich, dinner, 3
+turkey burger with fries, breakfast, 1
+turkey burger with fries, breakfast, 2
+turkey burger with fries, lunch, 1
+turkey burger with fries, lunch, 2
+turkey burger with fries, lunch, 3
+turkey burger with fries, dinner, 1
+turkey burger with fries, dinner, 2
+turkey burger with fries, dinner, 3
+caesar salad, breakfast, 1
+caesar salad, breakfast, 2
+caesar salad, lunch, 1
+caesar salad, lunch, 2
+caesar salad, lunch, 3
+caesar salad, dinner, 1
+caesar salad, dinner, 2
+caesar salad, dinner, 3
+tomato and goat cheese quiche, breakfast, 1
+tomato and goat cheese quiche, breakfast, 2
+tomato and goat cheese quiche, lunch, 1
+tomato and goat cheese quiche, lunch, 2
+tomato and goat cheese quiche, lunch, 3
+tomato and goat cheese quiche, dinner, 1
+tomato and goat cheese quiche, dinner, 2
+tomato and goat cheese quiche, dinner, 3
+butter chicken, breakfast, 1
+butter chicken, breakfast, 2
+butter chicken, lunch, 1
+butter chicken, lunch, 2
+butter chicken, lunch, 3
+butter chicken, dinner, 1
+butter chicken, dinner, 2
+butter chicken, dinner, 3
+steak eggs and chips, breakfast, 1
+steak eggs and chips, breakfast, 2
+steak eggs and chips, lunch, 1
+steak eggs and chips, lunch, 2
+steak eggs and chips, lunch, 3
+steak eggs and chips, dinner, 1
+steak eggs and chips, dinner, 2
+steak eggs and chips, dinner, 3
+roast chicken, breakfast, 1
+roast chicken, breakfast, 2
+roast chicken, lunch, 1
+roast chicken, lunch, 2
+roast chicken, lunch, 3
+roast chicken, dinner, 1
+roast chicken, dinner, 2
+roast chicken, dinner, 3
+roast pork, breakfast, 1
+roast pork, breakfast, 2
+roast pork, lunch, 1
+roast pork, lunch, 2
+roast pork, lunch, 3
+roast pork, dinner, 1
+roast pork, dinner, 2
+roast pork, dinner, 3
+roast lamb, breakfast, 1
+roast lamb, breakfast, 2
+roast lamb, lunch, 1
+roast lamb, lunch, 2
+roast lamb, lunch, 3
+roast lamb, dinner, 1
+roast lamb, dinner, 2
+roast lamb, dinner, 3
+nachos, breakfast, 1
+nachos, breakfast, 2
+nachos, lunch, 1
+nachos, lunch, 2
+nachos, lunch, 3
+nachos, dinner, 1
+nachos, dinner, 2
+nachos, dinner, 3
+stirfry, breakfast, 1
+stirfry, breakfast, 2
+stirfry, lunch, 1
+stirfry, lunch, 2
+stirfry, lunch, 3
+stirfry, dinner, 1
+stirfry, dinner, 2
+stirfry, dinner, 3
+bangers and mash, breakfast, 1
+bangers and mash, breakfast, 2
+bangers and mash, lunch, 1
+bangers and mash, lunch, 2
+bangers and mash, lunch, 3
+bangers and mash, dinner, 1
+bangers and mash, dinner, 2
+bangers and mash, dinner, 3
+chicken burger with fries, breakfast, 1
+chicken burger with fries, breakfast, 2
+chicken burger with fries, lunch, 1
+chicken burger with fries, lunch, 2
+chicken burger with fries, lunch, 3
+chicken burger with fries, dinner, 1
+chicken burger with fries, dinner, 2
+chicken burger with fries, dinner, 3
+shepherds pie, breakfast, 1
+shepherds pie, breakfast, 2
+shepherds pie, lunch, 1
+shepherds pie, lunch, 2
+shepherds pie, lunch, 3
+shepherds pie, dinner, 1
+shepherds pie, dinner, 2
+shepherds pie, dinner, 3
+beef stew, breakfast, 1
+beef stew, breakfast, 2
+beef stew, lunch, 1
+beef stew, lunch, 2
+beef stew, lunch, 3
+beef stew, dinner, 1
+beef stew, dinner, 2
+beef stew, dinner, 3
+baked potatoes, breakfast, 1
+baked potatoes, breakfast, 2
+baked potatoes, lunch, 1
+baked potatoes, lunch, 2
+baked potatoes, lunch, 3
+baked potatoes, dinner, 1
+baked potatoes, dinner, 2
+baked potatoes, dinner, 3
+chicken cabonara, breakfast, 1
+chicken cabonara, breakfast, 2
+chicken cabonara, lunch, 1
+chicken cabonara, lunch, 2
+chicken cabonara, lunch, 3
+chicken cabonara, dinner, 1
+chicken cabonara, dinner, 2
+chicken cabonara, dinner, 3

@@ -1,3 +1,4 @@
-<div *ngFor="let course of courses">
-    <app-course [course]="course"></app-course>
-</div>
+<button (click)="startGeneticAlgorith()">Start</button>
+<h2>Initial price: ${{initialPrice.toFixed(2)}}</h2>
+<h2>Best price: ${{weeklyMeal.price.toFixed(2)}}</h2>
+<app-daily-meal [meals]="weeklyMeal.aDaysMeal"></app-daily-meal>

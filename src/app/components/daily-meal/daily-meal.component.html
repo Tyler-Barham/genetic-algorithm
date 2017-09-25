@@ -1,0 +1,42 @@
+<div *ngIf="meals">
+  <table class="tableLayout">
+      <tr>
+        <th><h3>Monday</h3></th>
+        <th><h3>Tuesday</h3></th> 
+        <th><h3>Wednesday</h3></th>
+        <th><h3>Thursday</h3></th>
+        <th><h3>Friday</h3></th>
+        <th><h3>Saturday</h3></th>
+        <th><h3>Sunday</h3></th>
+      </tr>
+      <tr (click)="toggleAccordian($event)" class="accordionButton">
+        <td colspan="7" class="accordionButton">Breakfast</td>
+      </tr>
+      <tr class="accordianContent">
+        <td *ngFor="let meal of meals">
+            <app-course [course]="meal.breakfast1"></app-course>
+            <app-course [course]="meal.breakfast2"></app-course>
+        </td>
+      </tr>
+      <tr (click)="toggleAccordian($event)" class="accordionButton">
+          <td colspan="7" class="accordionButton">Lunch</td>
+        </tr>
+        <tr class="accordianContent">
+          <td *ngFor="let meal of meals">
+              <app-course [course]="meal.lunch1"></app-course>
+              <app-course [course]="meal.lunch2"></app-course>
+              <app-course [course]="meal.lunch3"></app-course>
+          </td>
+        </tr>
+        <tr (click)="toggleAccordian($event)" class="accordionButton">
+            <td colspan="7" class="accordionButton">Dinner</td>
+          </tr>
+          <tr class="accordianContent">
+            <td *ngFor="let meal of meals">
+                <app-course [course]="meal.dinner1"></app-course>
+                <app-course [course]="meal.dinner2"></app-course>
+                <app-course [course]="meal.dinner3"></app-course>
+            </td>
+          </tr>
+    </table>
+</div>
