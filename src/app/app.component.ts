@@ -36,8 +36,11 @@ export class AppComponent {
     this.initialPrice = this.geneticAlgorithm.findCheapestMeal().price;
     
     this.startAsyncReproduction().then(() => {
+      console.log("in then");
       this.getCheapestMeal();
       this.generations = 0;
+    }).catch(() => {
+      console.log("in catch");
     });
   }
 
@@ -45,10 +48,10 @@ export class AppComponent {
     this.weeklyMeal = this.geneticAlgorithm.findCheapestMeal();
   }
 
-  private async startAsyncReproduction() {
-    if (this.generations++ < 100) {
-      this.geneticAlgorithm.createChildPopulation();
-      this.startAsyncReproduction();
+  private async startAsyncReproduction(): Promise<void> {
+    while (this.generations++ < 100) {
+      console.log("Generation: " + this.generations);
+      await this.geneticAlgorithm.createChildPopulation();
     }
   }
 

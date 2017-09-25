@@ -25,7 +25,6 @@ export class GeneticAlgorithm {
 
     private populationSize: number = 100;
     private weeklyMealsPopulation: Array<WeeklyMeal> = new Array<WeeklyMeal>();
-    private totalPrice: number;
     private totalFitness: number;
 
     constructor(public http: Http) {
@@ -33,43 +32,113 @@ export class GeneticAlgorithm {
     }
 
     public fillInitialPopulation(): void {
-        this.totalPrice = 0;
+        this.weeklyMealsPopulation = new Array<WeeklyMeal>();
         while (this.weeklyMealsPopulation.length < this.populationSize) {
             let anItem = this.generateWeeksMeals();
-            this.totalPrice += anItem.price;
             this.weeklyMealsPopulation.push(anItem);
         }
     }
 
-    public createChildPopulation(): void {
-        let newGeneration: Array<WeeklyMeal> = new Array<WeeklyMeal>();
-        let parents: Array<WeeklyMeal> = this.weeklyMealsPopulation.slice();
+    public assignFitness(): void {
         let lastPosition: number = 0;
         this.totalFitness = 0;
 
-        parents.forEach(item => {
-            item.rouletStart = lastPosition + 1;
-            let fitness: number = this.totalPrice - item.price;
-            item.rouletEnd = fitness + item.rouletStart;
-            lastPosition = fitness;
-            this.totalFitness += fitness;
+        for (let i: number = 0; i < this.weeklyMealsPopulation.length; i++) {
+            this.weeklyMealsPopulation[i].rouletStart = lastPosition;
+            this.weeklyMealsPopulation[i].fitness = 1 / this.weeklyMealsPopulation[i].price;
+            this.weeklyMealsPopulation[i].rouletEnd = this.weeklyMealsPopulation[i].fitness + this.weeklyMealsPopulation[i].rouletStart;
+            lastPosition = this.weeklyMealsPopulation[i].rouletEnd;
+            this.totalFitness += this.weeklyMealsPopulation[i].fitness;
+            lastPosition += 0.000000000000000001;
+        };
+    }
+
+    public async createChildPopulation(): Promise<void> {
+        return new Promise<void>(resolve => {
+
+            let newGeneration: Array<WeeklyMeal> = new Array<WeeklyMeal>();
+
+            while (newGeneration.length < this.populationSize) {
+                this.assignFitness();
+                let pointer1 = (Math.random() * this.totalFitness);
+                let pointer2 = (Math.random() * this.totalFitness);
+                let parent1 = this.weeklyMealsPopulation.find(item => (pointer1 > item.rouletStart && pointer1 < item.rouletEnd));
+                let parent2 = this.weeklyMealsPopulation.find(item => (pointer2 > item.rouletStart && pointer2 < item.rouletEnd));
+
+                if (parent1 == undefined || parent2 == undefined) {
+                    console.log("Undefined...");
+                    continue;
+                }
+                if (parent1.rouletStart == parent2.rouletStart && parent1.rouletEnd == parent2.rouletEnd) {
+                    continue;
+                }
+
+                let child1: WeeklyMeal = new WeeklyMeal();
+                let child2: WeeklyMeal = new WeeklyMeal();
+
+                for (let i: number = 0; i < parent1.aDaysMeal.length; i++) {
+                    let which: number = Math.random();
+                    
+                    if (which < 0.5) {
+                        child1.aDaysMeal[i] = parent1.aDaysMeal[i];
+                    } else {
+                        child1.aDaysMeal[i] = parent2.aDaysMeal[i];
+                    }
+
+                    which = Math.random();
+                    
+                    if (which < 0.5) {
+                        child2.aDaysMeal[i] = parent1.aDaysMeal[i];
+                    } else {
+                        child2.aDaysMeal[i] = parent2.aDaysMeal[i];
+                    }
+                }
+
+                //TODO: check that children are valid according to constraints
+                //if () {
+                    //continue;
+                //}
+                
+                let index1: number = this.weeklyMealsPopulation.indexOf(parent1);
+                this.weeklyMealsPopulation.splice(index1, 1);
+
+                let index2: number = this.weeklyMealsPopulation.indexOf(parent2);
+                this.weeklyMealsPopulation.splice(index2, 1);
+
+                let price1: number = 0;
+                let price2: number = 0;
+                child1.aDaysMeal.forEach(meal => {
+                    price1 += this.calculatePrice(meal.breakfast1.ingredients);
+                    price1 += this.calculatePrice(meal.breakfast2.ingredients);
+                    price1 += this.calculatePrice(meal.lunch1.ingredients);
+                    price1 += this.calculatePrice(meal.lunch2.ingredients);
+                    price1 += this.calculatePrice(meal.lunch3.ingredients);
+                    price1 += this.calculatePrice(meal.dinner1.ingredients);
+                    price1 += this.calculatePrice(meal.dinner2.ingredients);
+                    price1 += this.calculatePrice(meal.dinner3.ingredients);
+                });
+                child2.aDaysMeal.forEach(meal => {
+                    price2 += this.calculatePrice(meal.breakfast1.ingredients);
+                    price2 += this.calculatePrice(meal.breakfast2.ingredients);
+                    price2 += this.calculatePrice(meal.lunch1.ingredients);
+                    price2 += this.calculatePrice(meal.lunch2.ingredients);
+                    price2 += this.calculatePrice(meal.lunch3.ingredients);
+                    price2 += this.calculatePrice(meal.dinner1.ingredients);
+                    price2 += this.calculatePrice(meal.dinner2.ingredients);
+                    price2 += this.calculatePrice(meal.dinner3.ingredients);
+                });
+                  
+                child1.price = price1;
+                child2.price = price2;
+
+                newGeneration.push(child1);
+                newGeneration.push(child2);
+            }
+            
+            this.weeklyMealsPopulation = newGeneration;
+            //console.log(newGeneration.slice());
+            resolve();
         });
-
-        while (parents.length > 0) {
-            let pointer = Math.floor((Math.random() * this.totalFitness) + 1);
-            let parent1 = parents.find(item => (pointer > item.rouletStart && pointer < item.rouletEnd));
-            let parent2 = parents.find(item => (pointer > item.rouletStart && pointer < item.rouletEnd));
-
-            console.log("Need to reproduce with the parents here");
-
-            let index1 = parents.indexOf(parent1);
-            parents.splice(index1, 1);
-
-            let index2 = parents.indexOf(parent2);
-            parents.splice(index2, 1);
-        }
-        
-        console.log("createChildComplete")
     }
 
     private findPairOfChromosomes(): Array<WeeklyMeal> {
