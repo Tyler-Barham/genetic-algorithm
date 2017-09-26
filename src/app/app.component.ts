@@ -49,10 +49,19 @@ export class AppComponent {
   }
 
   private async startAsyncReproduction(): Promise<void> {
-    while (this.generations++ < 100) {
-      console.log("Generation: " + this.generations);
+    let endTime: Date = new Date();
+    console.log("Started at:", endTime.toTimeString());
+    //endTime.setMinutes(endTime.getMinutes() + 5);
+    endTime.setSeconds(endTime.getSeconds() + 10);
+
+    while (new Date() < endTime) {
+      //console.log("Generation: " + this.generations);
       await this.geneticAlgorithm.createChildPopulation();
+      this.generations++;
     }
+    
+    console.log("Finished at:", new Date().toTimeString());
+    console.log("Generations: ", this.generations);
   }
 
 }

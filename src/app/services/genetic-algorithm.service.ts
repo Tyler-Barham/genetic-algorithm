@@ -23,7 +23,7 @@ export class GeneticAlgorithm {
     private uniqueLunches: Array<UniqueMeal> = Array<UniqueMeal>();
     private uniqueDinners: Array<UniqueMeal> = Array<UniqueMeal>();
 
-    private populationSize: number = 100;
+    private populationSize: number = 300;
     private weeklyMealsPopulation: Array<WeeklyMeal> = new Array<WeeklyMeal>();
     private totalFitness: number;
 
@@ -49,7 +49,6 @@ export class GeneticAlgorithm {
             this.weeklyMealsPopulation[i].rouletEnd = this.weeklyMealsPopulation[i].fitness + this.weeklyMealsPopulation[i].rouletStart;
             lastPosition = this.weeklyMealsPopulation[i].rouletEnd;
             this.totalFitness += this.weeklyMealsPopulation[i].fitness;
-            lastPosition += 0.000000000000000001;
         };
     }
 
@@ -57,13 +56,13 @@ export class GeneticAlgorithm {
         return new Promise<void>(resolve => {
 
             let newGeneration: Array<WeeklyMeal> = new Array<WeeklyMeal>();
+            this.assignFitness();
 
             while (newGeneration.length < this.populationSize) {
-                this.assignFitness();
                 let pointer1 = (Math.random() * this.totalFitness);
                 let pointer2 = (Math.random() * this.totalFitness);
-                let parent1 = this.weeklyMealsPopulation.find(item => (pointer1 > item.rouletStart && pointer1 < item.rouletEnd));
-                let parent2 = this.weeklyMealsPopulation.find(item => (pointer2 > item.rouletStart && pointer2 < item.rouletEnd));
+                let parent1 = this.weeklyMealsPopulation.find(item => (pointer1 >= item.rouletStart && pointer1 < item.rouletEnd));
+                let parent2 = this.weeklyMealsPopulation.find(item => (pointer2 >= item.rouletStart && pointer2 < item.rouletEnd));
 
                 if (parent1 == undefined || parent2 == undefined) {
                     console.log("Undefined...");
@@ -95,44 +94,38 @@ export class GeneticAlgorithm {
                 }
 
                 //TODO: check that children are valid according to constraints
-                //if () {
-                    //continue;
-                //}
-                
-                let index1: number = this.weeklyMealsPopulation.indexOf(parent1);
-                this.weeklyMealsPopulation.splice(index1, 1);
+                if (this.validateChromosome(child1)) {
+                    let price1: number = 0;
+                    child1.aDaysMeal.forEach(meal => {
+                        price1 += this.calculatePrice(meal.breakfast1.ingredients);
+                        price1 += this.calculatePrice(meal.breakfast2.ingredients);
+                        price1 += this.calculatePrice(meal.lunch1.ingredients);
+                        price1 += this.calculatePrice(meal.lunch2.ingredients);
+                        price1 += this.calculatePrice(meal.lunch3.ingredients);
+                        price1 += this.calculatePrice(meal.dinner1.ingredients);
+                        price1 += this.calculatePrice(meal.dinner2.ingredients);
+                        price1 += this.calculatePrice(meal.dinner3.ingredients);
+                    });
+                    child1.price = price1;
+                    newGeneration.push(child1);
+                }
 
-                let index2: number = this.weeklyMealsPopulation.indexOf(parent2);
-                this.weeklyMealsPopulation.splice(index2, 1);
+                if (this.validateChromosome(child2)) {
+                    let price2: number = 0;
+                    child2.aDaysMeal.forEach(meal => {
+                        price2 += this.calculatePrice(meal.breakfast1.ingredients);
+                        price2 += this.calculatePrice(meal.breakfast2.ingredients);
+                        price2 += this.calculatePrice(meal.lunch1.ingredients);
+                        price2 += this.calculatePrice(meal.lunch2.ingredients);
+                        price2 += this.calculatePrice(meal.lunch3.ingredients);
+                        price2 += this.calculatePrice(meal.dinner1.ingredients);
+                        price2 += this.calculatePrice(meal.dinner2.ingredients);
+                        price2 += this.calculatePrice(meal.dinner3.ingredients);
+                    });
+                    child2.price = price2;
+                    newGeneration.push(child2);
+                }
 
-                let price1: number = 0;
-                let price2: number = 0;
-                child1.aDaysMeal.forEach(meal => {
-                    price1 += this.calculatePrice(meal.breakfast1.ingredients);
-                    price1 += this.calculatePrice(meal.breakfast2.ingredients);
-                    price1 += this.calculatePrice(meal.lunch1.ingredients);
-                    price1 += this.calculatePrice(meal.lunch2.ingredients);
-                    price1 += this.calculatePrice(meal.lunch3.ingredients);
-                    price1 += this.calculatePrice(meal.dinner1.ingredients);
-                    price1 += this.calculatePrice(meal.dinner2.ingredients);
-                    price1 += this.calculatePrice(meal.dinner3.ingredients);
-                });
-                child2.aDaysMeal.forEach(meal => {
-                    price2 += this.calculatePrice(meal.breakfast1.ingredients);
-                    price2 += this.calculatePrice(meal.breakfast2.ingredients);
-                    price2 += this.calculatePrice(meal.lunch1.ingredients);
-                    price2 += this.calculatePrice(meal.lunch2.ingredients);
-                    price2 += this.calculatePrice(meal.lunch3.ingredients);
-                    price2 += this.calculatePrice(meal.dinner1.ingredients);
-                    price2 += this.calculatePrice(meal.dinner2.ingredients);
-                    price2 += this.calculatePrice(meal.dinner3.ingredients);
-                });
-                  
-                child1.price = price1;
-                child2.price = price2;
-
-                newGeneration.push(child1);
-                newGeneration.push(child2);
             }
             
             this.weeklyMealsPopulation = newGeneration;
@@ -141,8 +134,49 @@ export class GeneticAlgorithm {
         });
     }
 
-    private findPairOfChromosomes(): Array<WeeklyMeal> {
-        return null;
+    private validateChromosome(chromosome: WeeklyMeal): boolean {
+        let isValid = true;
+        this.usedWeeklyOptions = new Map<Course, number>();
+//TODO: Add unique meal check
+        chromosome.aDaysMeal.forEach(meal => {
+            this.usedDailyOptions = new Array<Course>();
+
+            if (this.isReoccuring(meal.breakfast1)) { isValid = false; return; }
+            if (this.isReoccuring(meal.breakfast2)) { isValid = false; return; }
+            if (this.isReoccuring(meal.lunch1)) { isValid = false; return; }
+            if (this.isReoccuring(meal.lunch2)) { isValid = false; return; }
+            if (this.isReoccuring(meal.lunch3)) { isValid = false; return; }
+            if (this.isReoccuring(meal.dinner1)) { isValid = false; return; }
+            if (this.isReoccuring(meal.dinner2)) { isValid = false; return; }
+            if (this.isReoccuring(meal.dinner3)) { isValid = false; return; }
+            
+        });
+
+        return isValid;
+    }
+
+    private isReoccuring(course: Course): boolean {
+
+        if (!this.usedDailyOptions.find(dailyCourse => dailyCourse == course)) {
+            this.usedDailyOptions.push(course);
+        } else {
+            return true;
+        }
+        
+
+        if (this.usedWeeklyOptions.has(course)) {
+            let currentCount = this.usedWeeklyOptions.get(course);
+
+            if (currentCount < 3) {
+                this.usedWeeklyOptions.set(course, currentCount + 1);
+            } else {
+                return true;
+            }
+        } else {
+            this.usedWeeklyOptions.set(course, 1);
+        }
+
+        return false;
     }
 
     public findCheapestMeal(): WeeklyMeal {
@@ -226,13 +260,13 @@ export class GeneticAlgorithm {
             aDailyMeal.lunch3 = this.tryFindMeal(dailyOptions.lunch3);
             uniqueMeal = this.storeUniqueMeals(aDailyMeal.lunch1, aDailyMeal.lunch2, aDailyMeal.lunch3);
 
-            if (!this.uniqueBreakfasts.find(meal => (
+            if (!this.uniqueLunches.find(meal => (
                 meal.course1 == uniqueMeal.course1 &&
                 meal.course2 == uniqueMeal.course2 &&
                 meal.course3 == uniqueMeal.course3
             ))) {
                 isUnique = true;
-                this.uniqueBreakfasts.push(uniqueMeal);
+                this.uniqueLunches.push(uniqueMeal);
             }
         }
 
@@ -244,13 +278,13 @@ export class GeneticAlgorithm {
             aDailyMeal.dinner3 = this.tryFindMeal(dailyOptions.dinner3);
             uniqueMeal = this.storeUniqueMeals(aDailyMeal.dinner1, aDailyMeal.dinner2, aDailyMeal.dinner3);
 
-            if (!this.uniqueBreakfasts.find(meal => (
+            if (!this.uniqueDinners.find(meal => (
                 meal.course1 == uniqueMeal.course1 &&
                 meal.course2 == uniqueMeal.course2 &&
                 meal.course3 == uniqueMeal.course3
             ))) {
                 isUnique = true;
-                this.uniqueBreakfasts.push(uniqueMeal);
+                this.uniqueDinners.push(uniqueMeal);
             }
         }
 
