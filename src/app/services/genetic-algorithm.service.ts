@@ -75,25 +75,34 @@ export class GeneticAlgorithm {
                 let child1: WeeklyMeal = new WeeklyMeal();
                 let child2: WeeklyMeal = new WeeklyMeal();
 
+                //Clear these out so generate daily meal will work properly
+                this.usedWeeklyOptions = new Map<Course, number>();
+                this.uniqueBreakfasts = new Array<UniqueMeal>();
+                this.uniqueLunches = new Array<UniqueMeal>();
+                this.uniqueDinners = new Array<UniqueMeal>();
+
                 for (let i: number = 0; i < parent1.aDaysMeal.length; i++) {
-                    let which: number = Math.random();
-                    
-                    if (which < 0.5) {
+                    let chance: number = Math.random();
+
+                    if (chance < 0.02) {
+                        child1.aDaysMeal[i] = this.generateDailyMeal();
+                    } else if (chance < 0.51) {
                         child1.aDaysMeal[i] = parent1.aDaysMeal[i];
                     } else {
                         child1.aDaysMeal[i] = parent2.aDaysMeal[i];
                     }
 
-                    which = Math.random();
-                    
-                    if (which < 0.5) {
+                    chance = Math.random();
+
+                    if (chance < 0.02) {
+                        child2.aDaysMeal[i] = this.generateDailyMeal();
+                    } else if (chance < 0.51) {
                         child2.aDaysMeal[i] = parent1.aDaysMeal[i];
                     } else {
                         child2.aDaysMeal[i] = parent2.aDaysMeal[i];
                     }
                 }
 
-                //TODO: check that children are valid according to constraints
                 if (this.validateChromosome(child1)) {
                     let price1: number = 0;
                     child1.aDaysMeal.forEach(meal => {
@@ -129,14 +138,13 @@ export class GeneticAlgorithm {
             }
             
             this.weeklyMealsPopulation = newGeneration;
-            //console.log(newGeneration.slice());
             resolve();
         });
     }
 
     private validateChromosome(chromosome: WeeklyMeal): boolean {
         let isValid = true;
-        this.usedWeeklyOptions = new Map<Course, number>();
+
 //TODO: Add unique meal check
         chromosome.aDaysMeal.forEach(meal => {
             this.usedDailyOptions = new Array<Course>();
