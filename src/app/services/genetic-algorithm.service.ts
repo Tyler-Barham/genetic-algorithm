@@ -22,58 +22,223 @@ export class GeneticAlgorithm {
     private uniqueBreakfasts: Array<UniqueMeal> = Array<UniqueMeal>();
     private uniqueLunches: Array<UniqueMeal> = Array<UniqueMeal>();
     private uniqueDinners: Array<UniqueMeal> = Array<UniqueMeal>();
+    private excludedIngredients: Array<Ingredient> = Array<Ingredient>();
 
-    private populationSize: number = 100;
+    private populationSize: number = 300;
     private weeklyMealsPopulation: Array<WeeklyMeal> = new Array<WeeklyMeal>();
-    private totalPrice: number;
     private totalFitness: number;
 
     constructor(public http: Http) {
 
     }
 
-    public fillInitialPopulation(): void {
-        this.totalPrice = 0;
+    public getIngredients(): Array<Ingredient> {
+        return this.ingredients;
+    }
+
+    public fillInitialPopulation(ingredients: Array<Ingredient>): void {
+        this.weeklyMealsPopulation = new Array<WeeklyMeal>();
+        this.excludedIngredients = ingredients;
         while (this.weeklyMealsPopulation.length < this.populationSize) {
             let anItem = this.generateWeeksMeals();
-            this.totalPrice += anItem.price;
             this.weeklyMealsPopulation.push(anItem);
         }
     }
 
-    public createChildPopulation(): void {
-        let newGeneration: Array<WeeklyMeal> = new Array<WeeklyMeal>();
-        let parents: Array<WeeklyMeal> = this.weeklyMealsPopulation.slice();
+    public assignFitness(): void {
         let lastPosition: number = 0;
         this.totalFitness = 0;
 
-        parents.forEach(item => {
-            item.rouletStart = lastPosition + 1;
-            let fitness: number = this.totalPrice - item.price;
-            item.rouletEnd = fitness + item.rouletStart;
-            lastPosition = fitness;
-            this.totalFitness += fitness;
-        });
-
-        while (parents.length > 0) {
-            let pointer = Math.floor((Math.random() * this.totalFitness) + 1);
-            let parent1 = parents.find(item => (pointer > item.rouletStart && pointer < item.rouletEnd));
-            let parent2 = parents.find(item => (pointer > item.rouletStart && pointer < item.rouletEnd));
-
-            console.log("Need to reproduce with the parents here");
-
-            let index1 = parents.indexOf(parent1);
-            parents.splice(index1, 1);
-
-            let index2 = parents.indexOf(parent2);
-            parents.splice(index2, 1);
-        }
-        
-        console.log("createChildComplete")
+        for (let i: number = 0; i < this.weeklyMealsPopulation.length; i++) {
+            this.weeklyMealsPopulation[i].rouletStart = lastPosition;
+            this.weeklyMealsPopulation[i].fitness = 1 / this.weeklyMealsPopulation[i].price;
+            this.weeklyMealsPopulation[i].rouletEnd = this.weeklyMealsPopulation[i].fitness + this.weeklyMealsPopulation[i].rouletStart;
+            lastPosition = this.weeklyMealsPopulation[i].rouletEnd;
+            this.totalFitness += this.weeklyMealsPopulation[i].fitness;
+        };
     }
 
-    private findPairOfChromosomes(): Array<WeeklyMeal> {
-        return null;
+    public async createChildPopulation(): Promise<void> {
+        return new Promise<void>(resolve => {
+
+            let newGeneration: Array<WeeklyMeal> = new Array<WeeklyMeal>();
+            this.assignFitness();
+
+            while (newGeneration.length < this.populationSize) {
+                let pointer1 = (Math.random() * this.totalFitness);
+                let pointer2 = (Math.random() * this.totalFitness);
+                let parent1 = this.weeklyMealsPopulation.find(item => (pointer1 >= item.rouletStart && pointer1 < item.rouletEnd));
+                let parent2 = this.weeklyMealsPopulation.find(item => (pointer2 >= item.rouletStart && pointer2 < item.rouletEnd));
+
+                if (parent1 == undefined || parent2 == undefined) {
+                    console.log("Undefined...");
+                    continue;
+                }
+                if (parent1.rouletStart == parent2.rouletStart && parent1.rouletEnd == parent2.rouletEnd) {
+                    continue;
+                }
+
+                let child1: WeeklyMeal = new WeeklyMeal();
+                let child2: WeeklyMeal = new WeeklyMeal();
+
+                for (let i: number = 0; i < parent1.aDaysMeal.length; i++) {
+                    let chance: number = Math.random();
+
+                    if (chance < 0.02) {
+                        //Clear these out so generate daily meal will work properly
+                        this.usedWeeklyOptions = new Map<Course, number>();
+                        this.uniqueBreakfasts = new Array<UniqueMeal>();
+                        this.uniqueLunches = new Array<UniqueMeal>();
+                        this.uniqueDinners = new Array<UniqueMeal>();
+                        child1.aDaysMeal[i] = this.generateDailyMeal();
+                    } else if (chance < 0.51) {
+                        child1.aDaysMeal[i] = parent1.aDaysMeal[i];
+                    } else {
+                        child1.aDaysMeal[i] = parent2.aDaysMeal[i];
+                    }
+
+                    chance = Math.random();
+
+                    if (chance < 0.02) {
+                        //Clear these out so generate daily meal will work properly
+                        this.usedWeeklyOptions = new Map<Course, number>();
+                        this.uniqueBreakfasts = new Array<UniqueMeal>();
+                        this.uniqueLunches = new Array<UniqueMeal>();
+                        this.uniqueDinners = new Array<UniqueMeal>();
+                        child2.aDaysMeal[i] = this.generateDailyMeal();
+                    } else if (chance < 0.51) {
+                        child2.aDaysMeal[i] = parent1.aDaysMeal[i];
+                    } else {
+                        child2.aDaysMeal[i] = parent2.aDaysMeal[i];
+                    }
+                }
+
+                if (this.validateChromosome(child1)) {
+                    let price1: number = 0;
+                    child1.aDaysMeal.forEach(meal => {
+                        price1 += this.calculatePrice(meal.breakfast1.ingredients);
+                        price1 += this.calculatePrice(meal.breakfast2.ingredients);
+                        price1 += this.calculatePrice(meal.lunch1.ingredients);
+                        price1 += this.calculatePrice(meal.lunch2.ingredients);
+                        price1 += this.calculatePrice(meal.lunch3.ingredients);
+                        price1 += this.calculatePrice(meal.dinner1.ingredients);
+                        price1 += this.calculatePrice(meal.dinner2.ingredients);
+                        price1 += this.calculatePrice(meal.dinner3.ingredients);
+                    });
+                    child1.price = price1;
+                    newGeneration.push(child1);
+                }
+
+                if (this.validateChromosome(child2)) {
+                    let price2: number = 0;
+                    child2.aDaysMeal.forEach(meal => {
+                        price2 += this.calculatePrice(meal.breakfast1.ingredients);
+                        price2 += this.calculatePrice(meal.breakfast2.ingredients);
+                        price2 += this.calculatePrice(meal.lunch1.ingredients);
+                        price2 += this.calculatePrice(meal.lunch2.ingredients);
+                        price2 += this.calculatePrice(meal.lunch3.ingredients);
+                        price2 += this.calculatePrice(meal.dinner1.ingredients);
+                        price2 += this.calculatePrice(meal.dinner2.ingredients);
+                        price2 += this.calculatePrice(meal.dinner3.ingredients);
+                    });
+                    child2.price = price2;
+                    newGeneration.push(child2);
+                }
+
+            }
+            
+            this.weeklyMealsPopulation = newGeneration;
+            resolve();
+        });
+    }
+
+    private validateChromosome(chromosome: WeeklyMeal): boolean {
+        //Clear these out so generate daily meal will work properly
+        this.usedWeeklyOptions = new Map<Course, number>();
+        this.uniqueBreakfasts = new Array<UniqueMeal>();
+        this.uniqueLunches = new Array<UniqueMeal>();
+        this.uniqueDinners = new Array<UniqueMeal>();
+
+        let isValid = true;
+
+        chromosome.aDaysMeal.forEach(meal => {
+            this.usedDailyOptions = new Array<Course>();
+
+            if (!this.isUnique(meal)) { isValid = false; return; }
+            if (this.isReoccuring(meal.breakfast1)) { isValid = false; return; }
+            if (this.isReoccuring(meal.breakfast2)) { isValid = false; return; }
+            if (this.isReoccuring(meal.lunch1)) { isValid = false; return; }
+            if (this.isReoccuring(meal.lunch2)) { isValid = false; return; }
+            if (this.isReoccuring(meal.lunch3)) { isValid = false; return; }
+            if (this.isReoccuring(meal.dinner1)) { isValid = false; return; }
+            if (this.isReoccuring(meal.dinner2)) { isValid = false; return; }
+            if (this.isReoccuring(meal.dinner3)) { isValid = false; return; }
+            
+        });
+
+        return isValid;
+    }
+
+    private isUnique(meal: DailyMeal): boolean {
+        let uniqueBreakfast = this.storeUniqueMeals(meal.breakfast1, meal.breakfast2, null);
+        let uniqueLunch = this.storeUniqueMeals(meal.lunch1, meal.lunch2, meal.lunch3);
+        let uniqueDinner = this.storeUniqueMeals(meal.dinner1, meal.dinner2, meal.dinner3);
+        
+        if (!this.uniqueBreakfasts.find(meal => (
+            meal.course1 == uniqueBreakfast.course1 &&
+            meal.course2 == uniqueBreakfast.course2 &&
+            meal.course3 == uniqueBreakfast.course3
+        ))) {
+            this.uniqueBreakfasts.push(uniqueBreakfast);
+        } else {
+            return false;
+        }
+
+        if (!this.uniqueLunches.find(meal => (
+            meal.course1 == uniqueLunch.course1 &&
+            meal.course2 == uniqueLunch.course2 &&
+            meal.course3 == uniqueLunch.course3
+        ))) {
+            this.uniqueLunches.push(uniqueLunch);
+        } else {
+            return false;
+        }
+
+        if (!this.uniqueDinners.find(meal => (
+            meal.course1 == uniqueDinner.course1 &&
+            meal.course2 == uniqueDinner.course2 &&
+            meal.course3 == uniqueDinner.course3
+        ))) {
+            this.uniqueDinners.push(uniqueDinner);
+        } else {
+            return false;
+        }
+
+        return true;
+    }
+
+    private isReoccuring(course: Course): boolean {
+
+        if (!this.usedDailyOptions.find(dailyCourse => dailyCourse == course)) {
+            this.usedDailyOptions.push(course);
+        } else {
+            return true;
+        }
+        
+
+        if (this.usedWeeklyOptions.has(course)) {
+            let currentCount = this.usedWeeklyOptions.get(course);
+
+            if (currentCount < 3) {
+                this.usedWeeklyOptions.set(course, currentCount + 1);
+            } else {
+                return true;
+            }
+        } else {
+            this.usedWeeklyOptions.set(course, 1);
+        }
+
+        return false;
     }
 
     public findCheapestMeal(): WeeklyMeal {
@@ -157,13 +322,13 @@ export class GeneticAlgorithm {
             aDailyMeal.lunch3 = this.tryFindMeal(dailyOptions.lunch3);
             uniqueMeal = this.storeUniqueMeals(aDailyMeal.lunch1, aDailyMeal.lunch2, aDailyMeal.lunch3);
 
-            if (!this.uniqueBreakfasts.find(meal => (
+            if (!this.uniqueLunches.find(meal => (
                 meal.course1 == uniqueMeal.course1 &&
                 meal.course2 == uniqueMeal.course2 &&
                 meal.course3 == uniqueMeal.course3
             ))) {
                 isUnique = true;
-                this.uniqueBreakfasts.push(uniqueMeal);
+                this.uniqueLunches.push(uniqueMeal);
             }
         }
 
@@ -175,13 +340,13 @@ export class GeneticAlgorithm {
             aDailyMeal.dinner3 = this.tryFindMeal(dailyOptions.dinner3);
             uniqueMeal = this.storeUniqueMeals(aDailyMeal.dinner1, aDailyMeal.dinner2, aDailyMeal.dinner3);
 
-            if (!this.uniqueBreakfasts.find(meal => (
+            if (!this.uniqueDinners.find(meal => (
                 meal.course1 == uniqueMeal.course1 &&
                 meal.course2 == uniqueMeal.course2 &&
                 meal.course3 == uniqueMeal.course3
             ))) {
                 isUnique = true;
-                this.uniqueBreakfasts.push(uniqueMeal);
+                this.uniqueDinners.push(uniqueMeal);
             }
         }
 
@@ -219,6 +384,14 @@ export class GeneticAlgorithm {
                 this.usedWeeklyOptions.set(courseToReturn, 1);
                 isValid = true;
             }
+
+            courseToReturn.ingredients.forEach(usedIng => {
+                this.excludedIngredients.forEach(exclIng => {
+                    if (usedIng.ingredient == exclIng) {
+                        isValid = false;
+                    }
+                });
+            });
         }
 
         this.usedDailyOptions.push(courseToReturn);
