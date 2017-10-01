@@ -22,6 +22,7 @@ export class GeneticAlgorithm {
     private uniqueBreakfasts: Array<UniqueMeal> = Array<UniqueMeal>();
     private uniqueLunches: Array<UniqueMeal> = Array<UniqueMeal>();
     private uniqueDinners: Array<UniqueMeal> = Array<UniqueMeal>();
+    private excludedIngredients: Array<Ingredient> = Array<Ingredient>();
 
     private populationSize: number = 300;
     private weeklyMealsPopulation: Array<WeeklyMeal> = new Array<WeeklyMeal>();
@@ -31,8 +32,13 @@ export class GeneticAlgorithm {
 
     }
 
-    public fillInitialPopulation(): void {
+    public getIngredients(): Array<Ingredient> {
+        return this.ingredients;
+    }
+
+    public fillInitialPopulation(ingredients: Array<Ingredient>): void {
         this.weeklyMealsPopulation = new Array<WeeklyMeal>();
+        this.excludedIngredients = ingredients;
         while (this.weeklyMealsPopulation.length < this.populationSize) {
             let anItem = this.generateWeeksMeals();
             this.weeklyMealsPopulation.push(anItem);
@@ -75,16 +81,15 @@ export class GeneticAlgorithm {
                 let child1: WeeklyMeal = new WeeklyMeal();
                 let child2: WeeklyMeal = new WeeklyMeal();
 
-                //Clear these out so generate daily meal will work properly
-                this.usedWeeklyOptions = new Map<Course, number>();
-                this.uniqueBreakfasts = new Array<UniqueMeal>();
-                this.uniqueLunches = new Array<UniqueMeal>();
-                this.uniqueDinners = new Array<UniqueMeal>();
-
                 for (let i: number = 0; i < parent1.aDaysMeal.length; i++) {
                     let chance: number = Math.random();
 
                     if (chance < 0.02) {
+                        //Clear these out so generate daily meal will work properly
+                        this.usedWeeklyOptions = new Map<Course, number>();
+                        this.uniqueBreakfasts = new Array<UniqueMeal>();
+                        this.uniqueLunches = new Array<UniqueMeal>();
+                        this.uniqueDinners = new Array<UniqueMeal>();
                         child1.aDaysMeal[i] = this.generateDailyMeal();
                     } else if (chance < 0.51) {
                         child1.aDaysMeal[i] = parent1.aDaysMeal[i];
@@ -95,6 +100,11 @@ export class GeneticAlgorithm {
                     chance = Math.random();
 
                     if (chance < 0.02) {
+                        //Clear these out so generate daily meal will work properly
+                        this.usedWeeklyOptions = new Map<Course, number>();
+                        this.uniqueBreakfasts = new Array<UniqueMeal>();
+                        this.uniqueLunches = new Array<UniqueMeal>();
+                        this.uniqueDinners = new Array<UniqueMeal>();
                         child2.aDaysMeal[i] = this.generateDailyMeal();
                     } else if (chance < 0.51) {
                         child2.aDaysMeal[i] = parent1.aDaysMeal[i];
@@ -143,12 +153,18 @@ export class GeneticAlgorithm {
     }
 
     private validateChromosome(chromosome: WeeklyMeal): boolean {
+        //Clear these out so generate daily meal will work properly
+        this.usedWeeklyOptions = new Map<Course, number>();
+        this.uniqueBreakfasts = new Array<UniqueMeal>();
+        this.uniqueLunches = new Array<UniqueMeal>();
+        this.uniqueDinners = new Array<UniqueMeal>();
+
         let isValid = true;
 
-//TODO: Add unique meal check
         chromosome.aDaysMeal.forEach(meal => {
             this.usedDailyOptions = new Array<Course>();
 
+            if (!this.isUnique(meal)) { isValid = false; return; }
             if (this.isReoccuring(meal.breakfast1)) { isValid = false; return; }
             if (this.isReoccuring(meal.breakfast2)) { isValid = false; return; }
             if (this.isReoccuring(meal.lunch1)) { isValid = false; return; }
@@ -161,6 +177,44 @@ export class GeneticAlgorithm {
         });
 
         return isValid;
+    }
+
+    private isUnique(meal: DailyMeal): boolean {
+        let uniqueBreakfast = this.storeUniqueMeals(meal.breakfast1, meal.breakfast2, null);
+        let uniqueLunch = this.storeUniqueMeals(meal.lunch1, meal.lunch2, meal.lunch3);
+        let uniqueDinner = this.storeUniqueMeals(meal.dinner1, meal.dinner2, meal.dinner3);
+        
+        if (!this.uniqueBreakfasts.find(meal => (
+            meal.course1 == uniqueBreakfast.course1 &&
+            meal.course2 == uniqueBreakfast.course2 &&
+            meal.course3 == uniqueBreakfast.course3
+        ))) {
+            this.uniqueBreakfasts.push(uniqueBreakfast);
+        } else {
+            return false;
+        }
+
+        if (!this.uniqueLunches.find(meal => (
+            meal.course1 == uniqueLunch.course1 &&
+            meal.course2 == uniqueLunch.course2 &&
+            meal.course3 == uniqueLunch.course3
+        ))) {
+            this.uniqueLunches.push(uniqueLunch);
+        } else {
+            return false;
+        }
+
+        if (!this.uniqueDinners.find(meal => (
+            meal.course1 == uniqueDinner.course1 &&
+            meal.course2 == uniqueDinner.course2 &&
+            meal.course3 == uniqueDinner.course3
+        ))) {
+            this.uniqueDinners.push(uniqueDinner);
+        } else {
+            return false;
+        }
+
+        return true;
     }
 
     private isReoccuring(course: Course): boolean {
@@ -330,6 +384,14 @@ export class GeneticAlgorithm {
                 this.usedWeeklyOptions.set(courseToReturn, 1);
                 isValid = true;
             }
+
+            courseToReturn.ingredients.forEach(usedIng => {
+                this.excludedIngredients.forEach(exclIng => {
+                    if (usedIng.ingredient == exclIng) {
+                        isValid = false;
+                    }
+                });
+            });
         }
 
         this.usedDailyOptions.push(courseToReturn);

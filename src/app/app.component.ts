@@ -20,19 +20,23 @@ export class AppComponent {
   public weeklyMeal: WeeklyMeal = new WeeklyMeal();
   private initialPrice: number = 0;
   private generations: number = 0;
+  private currentInput: string = "";
+  private ingredients: Array<Ingredient> = new Array<Ingredient>();
+  private allIngredients: Array<Ingredient> = new Array<Ingredient>();
 
   constructor(public geneticAlgorithm: GeneticAlgorithm) {
     this.getDataFromTextFiles();
+    this.allIngredients = this.geneticAlgorithm.getIngredients();
   }
 
   private getDataFromTextFiles(): void {
-    this.geneticAlgorithm.readTextFiles().then(res => {
-      console.log(res);
+    this.geneticAlgorithm.readTextFiles().then(() => {
+      console.log("Finished reading files");
     });
   }
 
   private startGeneticAlgorith(): void {
-    this.geneticAlgorithm.fillInitialPopulation()
+    this.geneticAlgorithm.fillInitialPopulation(this.ingredients)
     this.initialPrice = this.geneticAlgorithm.findCheapestMeal().price;
     
     this.startAsyncReproduction().then(() => {
@@ -62,6 +66,33 @@ export class AppComponent {
     
     console.log("Finished at:", new Date().toTimeString());
     console.log("Generations: ", this.generations);
+  }
+
+  private addExclusion(): void {
+    let newExclusion = this.currentInput;
+
+    //Attempt to find an ingredient object
+    let foundIng = this.allIngredients.find(ing => ing.name.toLowerCase() == newExclusion.toLowerCase());
+    
+    //Make new ingredient if one wasn't found
+    if (foundIng == undefined) {
+      foundIng = new Ingredient(newExclusion, 0);
+    }
+
+    //Stop duplicates
+    if (!this.ingredients.find(ing => ing.name.toLowerCase() == newExclusion.toLowerCase())) {
+      this.ingredients.push(foundIng);
+    }
+
+    //Clear input
+    this.currentInput = "";
+  }
+
+  removeIngredient(ingredient: Ingredient): void {
+    let index: number = this.ingredients.indexOf(ingredient);
+    if (index !== -1) {
+        this.ingredients.splice(index, 1);
+    } 
   }
 
 }
